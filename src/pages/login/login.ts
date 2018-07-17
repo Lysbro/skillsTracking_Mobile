@@ -23,12 +23,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.nativeStorage.getItem("user").then(
-      (data) => {
-        this.navCtrl.setRoot(HomePage);
-      },
-      (err) => {
-        console.log('erreur');
-      }
+      (data) => { this.navCtrl.setRoot(HomePage); },
+      (err) => { console.log('erreur'); }
     );
   }
 
@@ -38,7 +34,6 @@ export class LoginPage {
       this.loading.dismiss();
       this.data = result;
       this.nativeStorage.setItem('user', this.data.success).then(() => {
-        // Modif
         this.navCtrl.setRoot(HomePage);
       });
     }, (err) => {
@@ -46,10 +41,6 @@ export class LoginPage {
       this.presentToast(err);
     });
   }
-
-  // register() {
-  //   this.navCtrl.push(RegisterPage);
-  // }
 
   showLoader() {
     this.loading = this.loadingCtrl.create({

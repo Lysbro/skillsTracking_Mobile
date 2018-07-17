@@ -14,6 +14,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 // Native component
 import { NativeStorage } from '@ionic-native/native-storage';
+import { ApiServiceProvider } from '../providers/api-service/api-service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
     SplashScreen,
     NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    ApiServiceProvider
   ]
 })
 export class AppModule {}

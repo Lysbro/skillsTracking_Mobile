@@ -55,7 +55,7 @@ export class AuthServiceProvider {
 
     const me = this.nativeStorage.getItem('user')
       .then(
-        data => console.log(data)
+        data => console.log('is logged' ,data)
       );
     return (me) ? true : false;
   }
