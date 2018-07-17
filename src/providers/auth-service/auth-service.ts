@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { resolveDefinition } from '../../../node_modules/@angular/core/src/view/util';
 
 const apiUrl: string = "http://skillstracking.motjo.io/api/";
 
 @Injectable()
 export class AuthServiceProvider {
 
-  public token: any;
+  private token: any;
 
   constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
     console.log('Hello AuthServiceProvider Provider');
@@ -20,7 +21,7 @@ export class AuthServiceProvider {
       .pipe(map(user => {
         console.log('authService login user', user);
         if (user && user.token) {
-          this.nativeStorage.setItem('user', credentials)
+          this.nativeStorage.setItem('user', user)
             .then(
               () => console.log('Stored item!'),
               error => console.error('Error storing item', error)
@@ -31,41 +32,56 @@ export class AuthServiceProvider {
   }
   
   logout() {
-    let httpOptions : any;
-    this.nativeStorage.getItem('myitem')
+
+    return this.nativeStorage.getItem('user')
     .then(data => {
-      httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + data.token
-      })}
-  });
-    return this.http.get(apiUrl + 'logout', httpOptions)
-      .pipe(map(data => {
+
+      let httpOptions : any = {
+
+        headers: new HttpHeaders({
+
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + data.token
+
+        })
+
+      };
+
+      return this.http.get(apiUrl + 'logout', httpOptions)
+      .toPromise()
+      .then(data => {
+
         console.log('logout data', data);
         this.nativeStorage.remove('user');
+        
         return data;
-      }));
+
+      });
+
+    });
+
   }
 
   isLogged() {
-    // const me = JSON.parse(localStorage.getItem('user'));
-    // console.log('isLogged', me);
-    // return (me) ? true : false;
 
-    const me = this.nativeStorage.getItem('user')
-      .then(
-        data => console.log('is logged' ,data)
-      );
+    const me = this.nativeStorage.getItem('user');
+
+    console.log('islogged: ', me);
+
     return (me) ? true : false;
   }
 
   getUserTypeId() {
-    const me = this.nativeStorage.getItem('user')
-      .then(
-        data => console.log(data)
-      );
-    return me;
+
+    return this.nativeStorage.getItem('user')
+    .then(data => {
+      console.log('user_type', data);
+
+      return data.user_type_id;
+
+    });
+
   }
 
 }

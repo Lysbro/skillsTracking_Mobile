@@ -3,6 +3,10 @@ import { IonicPage, NavController, NavParams, LoadingController, ToastController
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { NativeStorage } from '@ionic-native/native-storage';
+
+// Pages
+import { FormationsPage } from './../formations/formations';
+import { DashboardPage } from './../dashboard/dashboard';
 /**
  * Generated class for the LoginPage page.
  *
@@ -22,20 +26,17 @@ export class LoginPage {
   data: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
-    this.nativeStorage.getItem("user").then(
-      (data) => { this.navCtrl.setRoot(HomePage); },
-      (err) => { console.log('erreur'); }
-    );
+
   }
 
   doLogin() {
     this.showLoader();
     this.authService.login(this.loginData).subscribe((result) => {
       this.loading.dismiss();
-      this.data = result;
-      this.nativeStorage.setItem('user', this.data.success).then(() => {
-        this.navCtrl.setRoot(HomePage);
-      });
+
+      // on redirige l'utilisateur 
+      this.setPage();
+
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);
@@ -61,6 +62,34 @@ export class LoginPage {
       console.log('Dismissed toast');
     });
     toast.present();
+  }
+
+  private setPage(): void {
+
+    console.log(this.authService.isLogged());
+
+    if (this.authService.isLogged()) {
+
+      this.authService.getUserTypeId().then(data => {
+        
+        if (data == 3) {
+
+          this.navCtrl.setRoot(DashboardPage);
+
+        } else if (data == 2) {
+
+          this.navCtrl.setRoot(FormationsPage);
+
+        } else {
+
+          this.navCtrl.setRoot(HomePage); // Qu'est-ce qu'on fait là ???!!
+
+        }
+
+      });
+
+    }
+
   }
 
 }
