@@ -16,7 +16,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public authService: AuthServiceProvider, public app: App) {
     this.initializeApp();
@@ -25,7 +25,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Logout', component: HomePage }
+      { title: 'Logout', component: null }
     ];
 
   }
@@ -46,22 +46,11 @@ export class MyApp {
     if (page.component) {
       this.nav.setRoot(page.component);
     } else {
-      this.logout();
+      this.authService.logout().then(
+        data => {
+          this.nav.setRoot(LoginPage);
+        }
+      )
     }
-  }
-
-  logout() {
-    // this.authService.logout().then((result) => {
-    //   this.loading.dismiss();
-    //   let nav = this.app.getRootNav();
-    //   nav.setRoot(LoginPage);
-    // }, (err) => {
-    //   this.loading.dismiss();
-    //   this.presentToast(err);
-    // });
-
-    this.authService.logout();
-    let nav = this.app.getRootNav();
-    nav.setRoot(LoginPage);
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, Platform, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -21,11 +21,16 @@ export class LoginPage {
   loginData = { email: '', password: '' };
   data: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
-    this.nativeStorage.getItem("user").then(
-      (data) => { this.navCtrl.setRoot(HomePage); },
-      (err) => { console.log('erreur'); }
-    );
+  constructor(public navCtrl: NavController, public platform: Platform, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+    this.platform.ready().then(() => {
+      this.nativeStorage.getItem("user").then(
+        (data) => {
+          console.log('isLogged', data);
+          this.navCtrl.setRoot(HomePage);
+        },
+        (err) => { console.log('erreur'); }
+      );
+    });
   }
 
   doLogin() {
@@ -33,7 +38,7 @@ export class LoginPage {
     this.authService.login(this.loginData).subscribe((result) => {
       this.loading.dismiss();
       this.data = result;
-      this.nativeStorage.setItem('user', this.data.success).then(() => {
+      this.nativeStorage.setItem('user', this.data).then(() => {
         this.navCtrl.setRoot(HomePage);
       });
     }, (err) => {

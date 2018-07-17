@@ -15,7 +15,8 @@ export class ApiServiceProvider {
 
   //====================== Configurer le header avec un token ======================
   setHeaders() {
-    this.nativeStorage.getItem('user').then((data) => {
+    this.nativeStorage.getItem('user').then((data) => { // data undefine, le storage est vide
+      console.log('setHeader', data);
       let headers = new Headers();
       headers.append('Authorization', "Bearer " + data.token);
       this.options = { headers: headers };
@@ -24,6 +25,7 @@ export class ApiServiceProvider {
 
   //====================== Requête GET ======================
   get(url) {
+    console.log(this.options);
     return new Promise(resolve => {
       this.http.get(this.apiUrl + url, this.options).subscribe(data => {
         resolve(data);
