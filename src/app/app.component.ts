@@ -47,7 +47,7 @@ export class MyApp {
       this.nav.setRoot(page.component);
     } else {
       this.authService.logout().then(
-        data => {
+        () => {
           this.nav.setRoot(LoginPage);
         }
       )

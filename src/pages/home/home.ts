@@ -13,7 +13,7 @@ export class HomePage {
 
   constructor(public navParams: NavParams, public platform: Platform, public navCtrl: NavController, public authService: AuthServiceProvider, public app: App, public apiService: ApiServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.platform.ready().then(() => {
-      console.log('homeTs')
+      console.log('homeTs');
       this.apiService.get('users').then((data) => {
         console.log(data);
       });

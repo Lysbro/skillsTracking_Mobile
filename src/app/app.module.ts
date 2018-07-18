@@ -40,9 +40,9 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     StatusBar,
     SplashScreen,
     NativeStorage,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
     ApiServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

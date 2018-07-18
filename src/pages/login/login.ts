@@ -28,7 +28,7 @@ export class LoginPage {
           console.log('isLogged', data);
           this.navCtrl.setRoot(HomePage);
         },
-        (err) => { console.log('erreur'); }
+        (err) => { console.log('notLogged'); }
       );
     });
   }

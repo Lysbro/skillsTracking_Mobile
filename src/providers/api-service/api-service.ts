@@ -5,7 +5,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 
 @Injectable()
 export class ApiServiceProvider {
-  
+
   apiUrl: string = "http://skillstracking.motjo.io/api/";
   options: any;
 
@@ -19,17 +19,17 @@ export class ApiServiceProvider {
       console.log('setHeader', data);
       let headers = new Headers();
       headers.append('Authorization', "Bearer " + data.token);
+      headers.append('Content-Type', "application/json");
       this.options = { headers: headers };
+      console.log('header', this.options);
     });
   }
 
   //====================== Requête GET ======================
   get(url) {
-    console.log(this.options);
     return new Promise(resolve => {
       this.http.get(this.apiUrl + url, this.options).subscribe(data => {
         resolve(data);
-        console.log('test');
       }, err => {
         console.log(err);
       });
