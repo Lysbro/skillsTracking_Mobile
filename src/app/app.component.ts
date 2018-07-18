@@ -8,6 +8,9 @@ import { ListPage } from '../pages/list/list';
 
 import { LoginPage } from '../pages/login/login';
 
+// Providers 
+import { AuthServiceProvider } from './../providers/auth-service/auth-service';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -18,7 +21,7 @@ export class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -44,4 +47,16 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
+  logout() {
+
+    this.authService.logout()
+    .then(() => {
+
+      this.nav.setRoot(LoginPage);
+
+    });
+
+  }
+
 }
