@@ -3,14 +3,11 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { resolveDefinition } from '../../../node_modules/@angular/core/src/view/util';
 
 const apiUrl: string = "http://skillstracking.motjo.io/api/";
 
 @Injectable()
 export class AuthServiceProvider {
-
-  private token: any;
 
   constructor(public http: HttpClient, private nativeStorage: NativeStorage) {
     console.log('Hello AuthServiceProvider Provider');
@@ -36,7 +33,7 @@ export class AuthServiceProvider {
     return this.nativeStorage.getItem('user')
     .then(data => {
 
-      let httpOptions : any = {
+      let httpOptions: any = {
 
         headers: new HttpHeaders({
 
@@ -65,17 +62,15 @@ export class AuthServiceProvider {
 
   isLogged() {
 
-    const me = this.nativeStorage.getItem('user');
+    return (this.nativeStorage.getItem('user')) ? true : false;
 
-    console.log('islogged: ', me);
-
-    return (me) ? true : false;
   }
 
   getUserTypeId() {
 
     return this.nativeStorage.getItem('user')
     .then(data => {
+
       console.log('user_type', data);
 
       return data.user_type_id;
