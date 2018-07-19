@@ -71,7 +71,7 @@ export class LoginPage {
     if (this.authService.isLogged()) {
 
       this.authService.getUserTypeId().then(data => {
-        
+
         if (data == 3) {
 
           this.navCtrl.setRoot(DashboardPage);

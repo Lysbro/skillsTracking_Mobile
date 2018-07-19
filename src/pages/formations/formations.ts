@@ -24,7 +24,7 @@ import { Student } from './../../models/student.model';
 })
 export class FormationsPage {
 
-  public formations: any[] = [];
+  public formations: Formation[] = [];
   shownGroup: any;
 
 

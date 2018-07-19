@@ -19,7 +19,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider) {
     this.initializeApp();
@@ -51,11 +51,11 @@ export class MyApp {
   logout() {
 
     this.authService.logout()
-    .then(() => {
+      .then(() => {
 
-      this.nav.setRoot(LoginPage);
+        this.nav.setRoot(LoginPage);
 
-    });
+      });
 
   }
 
