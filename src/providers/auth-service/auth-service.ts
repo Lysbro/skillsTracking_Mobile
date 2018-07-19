@@ -30,36 +30,35 @@ export class AuthServiceProvider {
         return user;
       }));
   }
-  
+
   logout() {
 
     return this.nativeStorage.getItem('user')
-    .then(data => {
-
-      let httpOptions : any = {
-
-        headers: new HttpHeaders({
-
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + data.token
-
-        })
-
-      };
-
-      return this.http.get(apiUrl + 'logout', httpOptions)
-      .toPromise()
       .then(data => {
 
-        console.log('logout data', data);
-        this.nativeStorage.remove('user');
-        
-        return data;
+        let httpOptions: any = {
+
+          headers: new HttpHeaders({
+
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + data.token
+
+          })
+
+        };
+
+        return this.http.get(apiUrl + 'logout', httpOptions)
+          .toPromise()
+          .then(data => {
+
+            console.log('logout data', data);
+            this.nativeStorage.remove('user');
+            return data;
+
+          });
 
       });
-
-    });
 
   }
 
@@ -75,12 +74,12 @@ export class AuthServiceProvider {
   getUserTypeId() {
 
     return this.nativeStorage.getItem('user')
-    .then(data => {
-      console.log('user_type', data);
+      .then(data => {
+        console.log('user_type', data);
 
-      return data.user_type_id;
+        return data.user_type_id;
 
-    });
+      });
 
   }
 

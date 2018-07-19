@@ -5,14 +5,30 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>formations</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Formations</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+  <!-- <ul>
+    <li *ngFor="let formation of formations">
+      {{ formation.name }}
+    </li>
+  </ul> -->
+  <ion-list class="accordion-list">
+    <!-- First Level -->
+    <ion-list-header *ngFor="let formation of formations; let i = index" no-lines no-padding>
+      <!-- Toggle Button -->
+      <button ion-item (click)="toggleSection(i); getFormationId(formation.id)" detail-none [ngClass]="{'section-active': formation.open, 'section': !formation.open}">
+        {{ formation.name }}
+      </button>
+      <!-- <ion-input [(ngModel)]="formationId" value="{{ formation.id }}"></ion-input> -->
+    </ion-list-header>
+  </ion-list>
 
 </ion-content>

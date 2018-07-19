@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ToastController, Platform } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -25,8 +25,18 @@ export class LoginPage {
   loginData = { email: '', password: '' };
   data: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
-
+  constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+    this.platform.ready().then(
+      () => {
+        this.nativeStorage.getItem("user").then(
+          (data) => {
+            this.navCtrl.setRoot(HomePage);
+          },
+          (err) => {
+            console.log('notLogged');
+          }
+        );
+      });
   }
 
   doLogin() {
@@ -71,7 +81,7 @@ export class LoginPage {
     if (this.authService.isLogged()) {
 
       this.authService.getUserTypeId().then(data => {
-        
+
         if (data == 3) {
 
           this.navCtrl.setRoot(DashboardPage);
