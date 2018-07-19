@@ -110,4 +110,12 @@ export class FormationsPage {
 
   }
 
+  toggleSection(i) {
+    this.formations[i].open = !this.formations[i].open;
+  }
+
+  toggleItem(i, j) {
+    this.formations[i].name[j].open = !this.formations[i].name[j].open;
+  }
+
 }

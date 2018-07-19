@@ -6,13 +6,35 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>formations</ion-title>
-  </ion-navbar>
+  <ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Formations</ion-title>
+    </ion-navbar>
+  </ion-header>
 
-</ion-header>
 
+  <ion-content>
+    <ion-list class="accordion-list">
+      <!-- First Level -->
+      <ion-list-header *ngFor="let formation of formations; let i = index" no-lines no-padding>
+        <!-- Toggle Button -->
+        <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': formation.open, 'section': !formation.open}">
+          {{ formation.name }}
+        </button>
 
-<ion-content>
+        <ion-list *ngIf="formation" no-lines>
+          <!-- Second Level -->
+          <ion-list-header *ngFor="let student of formations[i].students; let j = index" no-padding>
+            <!-- Toggle Button -->
+            <button ion-item (click)="toggleItem(i, j)" *ngIf="student.id" class="child" detail-none>
+              {{ student.name }}
+            </button>
 
-</ion-content>
+          </ion-list-header>
+        </ion-list>
+      </ion-list-header>
+    </ion-list>
+  </ion-content>
