@@ -91,7 +91,9 @@ export class FormationsPage {
           student.id = data[j].id;
           student.lastName = data[j].lastname;
           student.firstName = data[j].firstname;
-
+          student.progressionTotal.totalSkills = data[j].progression.totalSkills;
+          student.progressionTotal.studentValitations = data[j].progression.studentValitations;
+          student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
 
           this.formations[i].students.push(student);
         }
