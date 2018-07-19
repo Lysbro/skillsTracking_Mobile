@@ -106,9 +106,9 @@ export class FormationsPage {
 
   }
 
-  public showDashboard(id): void {
+  public showDashboard(formationId: any, studentId: any): void {
 
-    this.navCtrl.setRoot(DashboardPage, id);
+    this.navCtrl.push(DashboardPage, { formation: formationId, student: studentId });
 
   }
 
