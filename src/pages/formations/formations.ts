@@ -41,7 +41,7 @@ export class FormationsPage {
     console.log('ionViewDidLoad FormationsPage');
   }
 
-  private setFormationsList() {
+  private setFormationsList(): void {
 
     this.apiService.get('teacher/myFormations')
       .then((data: any) => {
@@ -74,7 +74,7 @@ export class FormationsPage {
 
   }
 
-  private setStudentsListByFormation() {
+  private setStudentsListByFormation(): void {
 
     for (let i = 0; i < this.formations.length; i++) {
 
@@ -92,7 +92,7 @@ export class FormationsPage {
           student.lastName = data[j].lastname;
           student.firstName = data[j].firstname;
           student.progressionTotal.totalSkills = data[j].progression.totalSkills;
-          student.progressionTotal.studentValitations = data[j].progression.studentValitations;
+          student.progressionTotal.studentValidations = data[j].progression.studentValidations;
           student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
 
             this.formations[i].students.push(student);
