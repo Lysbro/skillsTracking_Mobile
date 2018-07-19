@@ -1,7 +1,7 @@
 export class ProgressionTotal {
 
     totalSkills: any;
-    studentValitations: any;
+    studentValidations: any;
     teacherValidations: any;
-    
+
 }
