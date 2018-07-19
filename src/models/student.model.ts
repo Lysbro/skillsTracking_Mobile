@@ -6,6 +6,6 @@ export class Student {
     id: any;
     lastName: any;
     firstName: any;
-    progressionTotal: ProgressionTotal;
+    progressionTotal: ProgressionTotal = new ProgressionTotal();
 
 }

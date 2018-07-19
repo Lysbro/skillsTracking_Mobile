@@ -41,7 +41,7 @@ export class FormationsPage {
     console.log('ionViewDidLoad FormationsPage');
   }
 
-  private setFormationsList() {
+  private setFormationsList(): void {
 
     this.apiService.get('teacher/myFormations')
       .then((data: any) => {
@@ -74,7 +74,7 @@ export class FormationsPage {
 
   }
 
-  private setStudentsListByFormation() {
+  private setStudentsListByFormation(): void {
 
     for (let i = 0; i < this.formations.length; i++) {
 
