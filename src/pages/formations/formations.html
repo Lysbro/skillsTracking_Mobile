@@ -15,7 +15,6 @@
     </ion-navbar>
   </ion-header>
 
-
   <ion-content>
     <ion-list class="accordion-list">
       <!-- First Level -->
@@ -24,17 +23,6 @@
         <button ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': formation.open, 'section': !formation.open}">
           {{ formation.name }}
         </button>
-
-        <ion-list *ngIf="formation" no-lines>
-          <!-- Second Level -->
-          <ion-list-header *ngFor="let student of formations[i].students; let j = index" no-padding>
-            <!-- Toggle Button -->
-            <button ion-item (click)="toggleItem(i, j)" *ngIf="student.id" class="child" detail-none>
-              {{ student.name }}
-            </button>
-
-          </ion-list-header>
-        </ion-list>
       </ion-list-header>
     </ion-list>
   </ion-content>
