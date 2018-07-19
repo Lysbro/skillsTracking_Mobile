@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { Platform } from 'ionic-angular';
 
 
 @Injectable()
@@ -11,7 +10,7 @@ export class ApiServiceProvider {
   private options: any;
 
 
-  constructor(public http: HttpClient, private nativeStorage: NativeStorage, private platform: Platform) {    
+  constructor(public http: HttpClient, private nativeStorage: NativeStorage) {    
 
   }
 
@@ -49,11 +48,11 @@ export class ApiServiceProvider {
       this.setHeaders()                      
       .then(() => {
 
-        this.http.get(this.apiUrl + url, this.options).subscribe(data => {
+        this.http.get(this.apiUrl + url, this.options).subscribe(result => {
 
-          resolve(data);
+          console.log('result', result);
 
-          console.log('test', data);
+          resolve(result);
 
         }, err => {
 
@@ -75,9 +74,11 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.post(this.apiUrl + url, data, this.options).subscribe(data => {
+        this.http.post(this.apiUrl + url, data, this.options).subscribe(result => {
 
-          resolve(data);
+          console.log('result', result['data']);
+
+          resolve(result['data']);
 
         }, err => {
 
@@ -99,9 +100,9 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.put(this.apiUrl + url, data, this.options).subscribe(data => {
+        this.http.put(this.apiUrl + url, data, this.options).subscribe(result => {
 
-          resolve(data);
+          resolve(result['data']);
 
         }, err => {
 
@@ -123,9 +124,9 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.put(this.apiUrl + url, data, this.options).subscribe(data => {
+        this.http.put(this.apiUrl + url, data, this.options).subscribe(result => {
 
-          resolve(data);
+          resolve(result['data']);
 
         }, err => {
 
@@ -147,9 +148,9 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.delete(this.apiUrl + url, this.options).subscribe(data => {
+        this.http.delete(this.apiUrl + url, this.options).subscribe(result => {
 
-          resolve(data);
+          resolve(result['data']);
 
         }, err => {
 
@@ -160,7 +161,7 @@ export class ApiServiceProvider {
       });      
       
     });
-    
+
   }
 
 }

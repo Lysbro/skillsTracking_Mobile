@@ -10,6 +10,8 @@ import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { FormationsPage } from '../pages/formations/formations';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { ReportsPage } from '../pages/reports/reports';
+import { ReportDetailsPage } from '../pages/report-details/report-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,6 +24,8 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
 
 @NgModule({
   declarations: [
+    ReportDetailsPage,
+    ReportsPage,
     DashboardPage,
     FormationsPage,
     MyApp,
@@ -36,6 +40,8 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    ReportDetailsPage,
+    ReportsPage,
     DashboardPage,
     FormationsPage,
     MyApp,
