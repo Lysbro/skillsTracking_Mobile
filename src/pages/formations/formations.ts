@@ -24,7 +24,8 @@ import { Student } from './../../models/student.model';
 })
 export class FormationsPage {
 
-  public formations: Formation[] = [];
+  public formations: any[] = [];
+  shownGroup: any;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
@@ -87,13 +88,13 @@ export class FormationsPage {
 
           for (let j = 0; j < data.length; j++) {
 
-          student = new Student();
-          student.id = data[j].id;
-          student.lastName = data[j].lastname;
-          student.firstName = data[j].firstname;
-          student.progressionTotal.totalSkills = data[j].progression.totalSkills;
-          student.progressionTotal.studentValidations = data[j].progression.studentValidations;
-          student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
+            student = new Student();
+            student.id = data[j].id;
+            student.lastName = data[j].lastname;
+            student.firstName = data[j].firstname;
+            student.progressionTotal.totalSkills = data[j].progression.totalSkills;
+            student.progressionTotal.studentValidations = data[j].progression.studentValidations;
+            student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
 
             this.formations[i].students.push(student);
           }
@@ -112,12 +113,19 @@ export class FormationsPage {
 
   }
 
-  toggleSection(i) {
-    this.formations[i].open = !this.formations[i].open;
+  toggleGroup(group) {
+    if (this.isGroupShown(group)) {
+      console.log('toggleGroup null');
+      this.shownGroup = null;
+    } else {
+      console.log('toggleGroup ok');
+      this.shownGroup = group;
+    }
   }
 
-  toggleItem(i, j) {
-    this.formations[i].name[j].open = !this.formations[i].name[j].open;
+  isGroupShown(group) {
+    console.log('isGroupShown');
+    return this.shownGroup === group;
   }
 
 }
