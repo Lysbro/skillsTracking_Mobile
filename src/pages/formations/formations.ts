@@ -44,61 +44,61 @@ export class FormationsPage {
   private setFormationsList() {
 
     this.apiService.get('teacher/myFormations')
-    .then((data: any) => {
+      .then((data: any) => {
 
-      this.formations = [];
-      let formation: Formation;
+        this.formations = [];
+        let formation: Formation;
 
-      console.log('formations_data: ', data['data']);
+        console.log('formations_data: ', data['data']);
 
-      for (let i = 0; i < data['data'].length; i++) {
+        for (let i = 0; i < data['data'].length; i++) {
 
-        formation = new Formation();
-        formation.id = data['data'][i].id;
-        formation.name = data['data'][i].name;
-        
-        console.log('détail_formation: ', formation);
+          formation = new Formation();
+          formation.id = data['data'][i].id;
+          formation.name = data['data'][i].name;
 
-        this.formations.push(formation);
+          console.log('détail_formation: ', formation);
 
-      }
+          this.formations.push(formation);
 
-      console.log('formations: ', this.formations);
+        }
 
-    })
-    .then(() => {
+        console.log('formations: ', this.formations);
 
-      this.setStudentsListByFormation();
+      })
+      .then(() => {
 
-    });
-    
+        this.setStudentsListByFormation();
+
+      });
+
   }
 
   private setStudentsListByFormation() {
 
-    for (let i = 0; i < this.formations.length; i++) {      
+    for (let i = 0; i < this.formations.length; i++) {
 
       this.apiService.get('getStudentsOfFormation/' + this.formations[i].id)
-      .then((data: any) => {
+        .then((data: any) => {
 
-        console.log('students_data: ', data);
+          console.log('students_data: ', data);
 
-        let student: Student;
+          let student: Student;
 
-        for (let j = 0; j < data.length; j++) {
+          for (let j = 0; j < data.length; j++) {
 
-          student = new Student();
-          student.id = data[j].id;
-          student.lastName = data[j].lastname;
-          student.firstName = data[j].firstname;
+            student = new Student();
+            student.id = data[j].id;
+            student.lastName = data[j].lastname;
+            student.firstName = data[j].firstname;
 
 
-          this.formations[i].students.push(student);
-        }
+            this.formations[i].students.push(student);
+          }
 
-        console.log('students: ', this.formations);
+          console.log('students: ', this.formations);
 
-      });
+        });
 
     }
 
@@ -107,7 +107,7 @@ export class FormationsPage {
   public showDashboard(id): void {
 
     this.navCtrl.setRoot(DashboardPage, id);
-    
+
   }
 
 }
