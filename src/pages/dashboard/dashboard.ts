@@ -99,4 +99,21 @@ export class DashboardPage {
 
   } 
 
+  public setSkillValue(value: any): boolean {
+
+    console.log('checkValue', (value == '1') ? true:false);
+
+    return (value == 1) ? true:false;
+
+  }
+
+  public updateValidation(progressionId:any, validation: any): void {
+
+    console.log('test update: ', [progressionId, validation]);
+
+    this.apiService.put('progression/updateTeacherValidation', { progression_id: progressionId, teacher_validation: validation })
+    .then(data => { console.log('update validation: ', data) });
+
+  }
+
 }
