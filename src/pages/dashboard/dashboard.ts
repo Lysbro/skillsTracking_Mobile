@@ -4,6 +4,11 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 // Providers
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
 
+// Models
+import { Student } from './../../models/student.model';
+import { Module } from './../../models/module.model';
+import { Skill } from './../../models/skill.model';
+
 /**
  * Generated class for the DashboardPage page.
  *
@@ -17,16 +22,16 @@ import { ApiServiceProvider } from './../../providers/api-service/api-service';
 })
 export class DashboardPage {
 
-  private student: any;
-  students: any;
+  public student: Student = new Student();
+  public modules: Module[] = [];
+  public moduleSkills: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
 
     this.platform.ready().then(() => {
 
-      this.setStudent(this.navParams.data);
-      this.students = this.navParams.get('students');
-      console.log(this.students);
+      this.setStudent(this.navParams.get('formation'), this.navParams.get('student'));
+
     });
 
   }
@@ -35,14 +40,80 @@ export class DashboardPage {
     console.log('ionViewDidLoad DashboardPage');
   }
 
-  private setStudent(id: any): void {
+  private setStudent(formationId: any, studentId: void): void {
 
-    this.apiService.get('student/' + id)
-    .then((data) => {
+    this.apiService.get('getStudentDatas/' + studentId + '/ofFormation/' + formationId)
+      .then((data: any) => {
 
-      console.log('student_data: ', data);
+        console.log('student_data: ', data);
 
-    });
+        this.student = new Student();
+        this.student.id = data.student.user_id;
+        this.student.lastName = data.student.user_lastname;
+        this.student.firstName = data.student.user_firstname;
+
+        console.log('student: ', this.student);
+
+        this.modules = [];
+        let studentModule: Module;
+
+        for (let i = 0; i < data.modules.length; i++) {
+
+          studentModule = new Module();
+          studentModule.id = data.modules[i].id;
+          studentModule.name = data.modules[i].name;
+          studentModule.progressionTotal.totalSkills = data.modules[i].totalSkills;
+          studentModule.progressionTotal.studentValidations = data.modules[i].progression.student;
+          studentModule.progressionTotal.teacherValidations = data.modules[i].progression.teacher;
+
+          let skill: Skill;
+
+          for (let j = 0; j < data.modules[i].skills.length; j++) {
+
+            skill = new Skill();
+            skill.id = data.modules[i].skills[j].id;
+            skill.name = data.modules[i].skills[j].name;
+            skill.progressionDetail.studentProgressionId = data.modules[i].skills[j].progression.student_progression_id;
+            skill.progressionDetail.studentValidation = data.modules[i].skills[j].progression.student_validation;
+            skill.progressionDetail.studentValidationDate = data.modules[i].skills[j].progression.student_validation_date;
+            skill.progressionDetail.teacherValidation = data.modules[i].skills[j].progression.teacher_validation;
+            skill.progressionDetail.teacherValidationDate = data.modules[i].skills[j].progression.teacher_validation_date;
+
+            studentModule.skills.push(skill);
+
+          }
+
+          this.modules.push(studentModule);
+
+        }
+
+        console.log('modules: ', this.modules);
+
+      });
+
+  }
+
+  public showSkills(moduleId: any): void {
+
+    this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
+
+  }
+
+  public setSkillValue(value: any): boolean {
+
+    console.log('checkValue', (value == '1') ? true : false);
+
+    return (value == 1) ? true : false;
+
+  }
+
+  public updateValidation(progressionId: any, validation: any): void {
+
+    console.log('test update: ', [progressionId, validation]);
+
+    this.apiService.put('progression/updateTeacherValidation', { progression_id: progressionId, teacher_validation: validation })
+      .then(data => { console.log('update validation: ', data) });
+
   }
 
 }
