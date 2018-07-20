@@ -1,10 +1,10 @@
-import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 import { Formation } from './../../models/formation.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
 // Providers
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 // Models
 import { Student } from './../../models/student.model';
@@ -28,23 +28,67 @@ export class DashboardPage {
   public modules: Module[] = [];
   public moduleSkills: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider, private authService: AuthServiceProvider) {
 
     this.platform.ready().then(() => {
 
-      this.setStudent(this.navParams.get('formation'), this.navParams.get('student'));
+      this.setStudent();
+      console.log('connection réussi !');
       
     });
 
   }
 
-  ionViewDidLoad() {
-    console.log('connection réussi !');
+  private setStudent(): void {
+      this.apiService.get('getFormations')
+      .then((data: any) => {
+
+      console.log('student_data: ', data);
+
+      console.log('student: ', this.student);
+
+      this.modules = [];
+      let studentModule: Module;
+      let module: any;
+
+      for (let i = 0; i < data.length; i++) {
+
+        module = data[i].module;
+
+        studentModule = new Module();
+        studentModule.id = module.id;
+        studentModule.name = module.name;
+        studentModule.progressionTotal.totalSkills = module.totalSkills;
+        studentModule.progressionTotal.studentValidations = module.progression.student;
+        studentModule.progressionTotal.teacherValidations = module.progression.teacher;
+
+        let skill: Skill;
+
+        for (let j = 0; j < module.skills.length; j++) {
+
+          skill = new Skill();
+          skill.id = module.skills[j].id;
+          skill.name = module.skills[j].name;
+          skill.progressionDetail.studentProgressionId = module.skills[j].progression.student_progression_id;
+          skill.progressionDetail.studentValidation = module.skills[j].progression.student_validation;
+          skill.progressionDetail.studentValidationDate = module.skills[j].progression.student_validation_date;
+          skill.progressionDetail.teacherValidation = module.skills[j].progression.teacher_validation;
+          skill.progressionDetail.teacherValidationDate = module.skills[j].progression.teacher_validation_date;
+
+          studentModule.skills.push(skill);
+
+        }
+        
+        this.modules.push(studentModule);
+
+      }
+
+      console.log('modules: ', this.modules);
+    })
   }
 
-  private setStudent(formationId: any, studentId: void): void {
-
-    this.apiService.get('getStudentDatas/' + studentId + '/ofFormation/' + formationId)
+  private setStudentByTeacher() {
+    this.apiService.get('getFormations')
     .then((data: any) => {
 
       console.log('student_data: ', data);
@@ -92,7 +136,6 @@ export class DashboardPage {
       console.log('modules: ', this.modules);
 
     });
-
   }
 
   public showSkills(moduleId: any): void {
@@ -100,5 +143,19 @@ export class DashboardPage {
     this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
 
   } 
+
+  private setRoot() {
+    return this.authService.getUserTypeId().then(data => {
+      if (data == 3) {
+
+        this.setStudent();
+
+      } else {
+
+        this.setStudentByTeacher();
+        
+      }
+    })
+  }
 
 }

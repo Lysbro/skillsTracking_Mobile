@@ -14,10 +14,15 @@
 
 
 <ion-content padding>
-  <ion-item *ngFor="let formation of formations">
-    <img [src]="formation.data.avatar">
-    <h2>{{ formation.data.name }}</h2>
-    <p>{{ formation.data.start_at | date }}</p>
-    <p>{{ formation.data.end_at | date }}</p>
-  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let module of modules" (click)="showSkills(module.id)">
+      <h2>{{ module.name }} | {{ module.progressionTotal.totalSkills }}</h2>
+    </ion-item>
+
+    <ion-list *ngIf="moduleSkills">
+        <ion-list *ngFor="let skill of moduleSkills.skills">
+          <ion-item>{{ skill.name }}</ion-item>
+        </ion-list>
+      </ion-list>
+  </ion-list>
 </ion-content>
