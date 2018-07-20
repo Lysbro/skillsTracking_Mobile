@@ -1,11 +1,11 @@
-// Models
+import { Skill } from './skill.model';
 import { ProgressionTotal } from './progression-total.model';
 
-export class Student {
+export class Module {
 
     id: any;
-    lastName: any;
-    firstName: any;
+    name: any;
     progressionTotal: ProgressionTotal = new ProgressionTotal();
-
+    skills: Skill[] = [];
+    
 }
