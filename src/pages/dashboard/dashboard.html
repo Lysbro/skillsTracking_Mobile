@@ -14,15 +14,27 @@
 
 
 <ion-content padding>
-  <ion-list>
+  <ion-list insert>
     <ion-item *ngFor="let module of modules" (click)="showSkills(module.id)">
       <h2>{{ module.name }} | {{ module.progressionTotal.totalSkills }}</h2>
     </ion-item>
-
     <ion-list *ngIf="moduleSkills">
-        <ion-list *ngFor="let skill of moduleSkills.skills">
-          <ion-item>{{ skill.name }}</ion-item>
-        </ion-list>
+      <ion-list-header>
+        Action
+      </ion-list-header>
+      <ion-list-header></ion-list-header>  
+      <ion-list *ngFor="let skill of moduleSkills.skills">
+        <ion-item>{{ skill.name }}</ion-item>
+        <ion-item>
+          <ion-label>Valider par l'élève</ion-label> 
+            <ion-checkbox color="green" (click)="putStudentValidate(progressionId, validation)" [(ngModel)]="skill.progressionDetail.studentValidation" (ionChange)=" updateStudentValidate(skill.progressionDetail.studentProgressionId, skill.progressionDetail.studentValidation)"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Valider par le formateur</ion-label>
+          <ion-checkbox color="green" disabled="true" [(ngModel)]="skill.progressionDetail.teacherValidation"></ion-checkbox>
+        </ion-item>
       </ion-list>
+    </ion-list>
   </ion-list>
 </ion-content>

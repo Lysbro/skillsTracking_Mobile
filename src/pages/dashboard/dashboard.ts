@@ -39,13 +39,13 @@ export class DashboardPage {
 
   }
 
+  //==================================================================|| Parti de l'élèvé connecté ||==================================================================//
+
   private setStudent(): void {
       this.apiService.get('getFormations')
       .then((data: any) => {
 
       console.log('student_data: ', data);
-
-      console.log('student: ', this.student);
 
       this.modules = [];
       let studentModule: Module;
@@ -83,9 +83,11 @@ export class DashboardPage {
 
       }
 
-      console.log('modules: ', this.modules);
+      console.log('module: ', this.modules);
     })
   }
+
+  //==================================================================|| Parti du formateur connecté ||==================================================================//
 
   private setStudentByTeacher() {
     this.apiService.get('getFormations')
@@ -142,8 +144,18 @@ export class DashboardPage {
 
     this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
 
-  } 
+  }
+  
+  public updateStudentValidate(progressionId: any, validation: any): void {
+    
+    console.log('test_update', [progressionId, validation]);
 
+    this.apiService.put('progression/updateStudentValidation', {progression_id: progressionId , student_validation: validation })
+    .then(data => {
+      console.log('update_student: ', data);
+    });
+  }
+  
   private setRoot() {
     return this.authService.getUserTypeId().then(data => {
       if (data == 3) {
@@ -153,7 +165,7 @@ export class DashboardPage {
       } else {
 
         this.setStudentByTeacher();
-        
+
       }
     })
   }
