@@ -18,13 +18,15 @@ import { ApiServiceProvider } from './../../providers/api-service/api-service';
 export class DashboardPage {
 
   private student: any;
+  students: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
 
     this.platform.ready().then(() => {
 
       this.setStudent(this.navParams.data);
-      
+      this.students = this.navParams.get('students');
+      console.log(this.students);
     });
 
   }

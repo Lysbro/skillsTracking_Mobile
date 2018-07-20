@@ -20,8 +20,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 // Native component
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
-
-
+import { NgCircleProgressModule } from 'ng-circle-progress';
 @NgModule({
   declarations: [
     ReportDetailsPage,
@@ -37,6 +36,15 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 100,
+      outerStrokeWidth: 16,
+      innerStrokeWidth: 8,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 300,
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,9 +61,9 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     StatusBar,
     SplashScreen,
     NativeStorage,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
     ApiServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

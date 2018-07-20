@@ -23,8 +23,8 @@ import { Student } from './../../models/student.model';
   templateUrl: 'formations.html',
 })
 export class FormationsPage {
-
   public formations: Formation[] = [];
+  shownGroup = null;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
@@ -87,13 +87,13 @@ export class FormationsPage {
 
           for (let j = 0; j < data.length; j++) {
 
-          student = new Student();
-          student.id = data[j].id;
-          student.lastName = data[j].lastname;
-          student.firstName = data[j].firstname;
-          student.progressionTotal.totalSkills = data[j].progression.totalSkills;
-          student.progressionTotal.studentValidations = data[j].progression.studentValidations;
-          student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
+            student = new Student();
+            student.id = data[j].id;
+            student.lastName = data[j].lastname;
+            student.firstName = data[j].firstname;
+            student.progressionTotal.totalSkills = data[j].progression.totalSkills;
+            student.progressionTotal.studentValidations = data[j].progression.studentValidations;
+            student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
 
             this.formations[i].students.push(student);
           }
@@ -110,6 +110,24 @@ export class FormationsPage {
 
     this.navCtrl.setRoot(DashboardPage, id);
 
+  }
+
+  toggleGroup(group) {
+    if (this.isGroupShown(group)) {
+      this.shownGroup = null;
+    } else {
+      this.shownGroup = group;
+    }
+  }
+
+  isGroupShown(group) {
+    return this.shownGroup === group;
+  }
+
+  redirectStudent() {
+    let students = this.formations;
+    console.log("avant transit", this.formations);
+    this.navCtrl.push(DashboardPage, { students });
   }
 
 }
