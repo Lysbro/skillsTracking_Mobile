@@ -1,5 +1,9 @@
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
+import { Formation } from './../../models/formation.model';
+import { ApiServiceProvider } from './../../providers/api-service/api-service';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Form } from '../../../node_modules/@angular/forms';
 
 /**
  * Generated class for the DashboardPage page.
@@ -14,11 +18,22 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class DashboardPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  modules: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider, private authUserType: AuthServiceProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DashboardPage');
+    this.getAllModule();
+    console.log('connection réussi !');
+  }
+
+  getAllModule() {
+    this.apiService.get('modules')
+    .then(data => {
+      this.modules = data;
+      console.log(this.modules);
+    });
   }
 
 }

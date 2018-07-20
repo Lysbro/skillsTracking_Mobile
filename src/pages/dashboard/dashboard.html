@@ -14,5 +14,10 @@
 
 
 <ion-content padding>
-
+  <ion-item *ngFor="let formation of formations">
+    <img [src]="formation.data.avatar">
+    <h2>{{ formation.data.name }}</h2>
+    <p>{{ formation.data.start_at | date }}</p>
+    <p>{{ formation.data.end_at | date }}</p>
+  </ion-item>
 </ion-content>
