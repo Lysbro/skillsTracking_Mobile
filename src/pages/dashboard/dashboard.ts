@@ -5,6 +5,8 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
 
 // Models
+import { ProgressionDetails } from './../../models/progression-detail.model';
+import { ProgressionTotal } from './../../models/progression-total.model';
 import { Student } from './../../models/student.model';
 import { Module } from './../../models/module.model';
 import { Skill } from './../../models/skill.model';
@@ -47,10 +49,7 @@ export class DashboardPage {
 
       console.log('student_data: ', data);
 
-      this.student = new Student();
-      this.student.id = data.student.user_id;
-      this.student.lastName = data.student.user_lastname;
-      this.student.firstName = data.student.user_firstname;
+      this.student = new Student(data.student.user_id, data.student.user_lastname, data.student.user_firstname);
 
       console.log('student: ', this.student);
 
@@ -59,27 +58,11 @@ export class DashboardPage {
 
       for (let i = 0; i < data.modules.length; i++) {
 
-        studentModule = new Module();
-        studentModule.id = data.modules[i].id;
-        studentModule.name = data.modules[i].name;
-        studentModule.progressionTotal.totalSkills = data.modules[i].totalSkills;
-        studentModule.progressionTotal.studentValidations = data.modules[i].progression.student;
-        studentModule.progressionTotal.teacherValidations = data.modules[i].progression.teacher;
-
-        let skill: Skill;
+        studentModule = new Module(data.modules[i].id, data.modules[i].name, new ProgressionTotal(data.modules[i].totalSkills, data.modules[i].progression.student, data.modules[i].progression.teacher));
 
         for (let j = 0; j < data.modules[i].skills.length; j++) {
 
-          skill = new Skill();
-          skill.id = data.modules[i].skills[j].id;
-          skill.name = data.modules[i].skills[j].name;
-          skill.progressionDetail.studentProgressionId = data.modules[i].skills[j].progression.student_progression_id;
-          skill.progressionDetail.studentValidation = data.modules[i].skills[j].progression.student_validation;
-          skill.progressionDetail.studentValidationDate = data.modules[i].skills[j].progression.student_validation_date;
-          skill.progressionDetail.teacherValidation = data.modules[i].skills[j].progression.teacher_validation;
-          skill.progressionDetail.teacherValidationDate = data.modules[i].skills[j].progression.teacher_validation_date;
-
-          studentModule.skills.push(skill);
+          studentModule.addSkill(new Skill(data.modules[i].skills[j].id, data.modules[i].skills[j].name, new ProgressionDetails(data.modules[i].skills[j].progression.student_progression_id, data.modules[i].skills[j].progression.student_validation, data.modules[i].skills[j].progression.student_validation_date, data.modules[i].skills[j].progression.teacher_validation, data.modules[i].skills[j].progression.teacher_validation_date)));
 
         }
         
@@ -98,14 +81,6 @@ export class DashboardPage {
     this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
 
   } 
-
-  public setSkillValue(value: any): boolean {
-
-    console.log('checkValue', (value == '1') ? true:false);
-
-    return (value == 1) ? true:false;
-
-  }
 
   public updateValidation(progressionId:any, validation: any): void {
 
