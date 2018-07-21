@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title *ngIf="user">dashboard | {{ user.lastname }} {{ user.lastname}}</ion-title>
   </ion-navbar>
 
 </ion-header>

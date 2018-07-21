@@ -10,6 +10,7 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
 import { Student } from './../../models/student.model';
 import { Module } from './../../models/module.model';
 import { Skill } from './../../models/skill.model';
+import { User } from './../../models/user.model';
 
 /**
  * Generated class for the DashboardPage page.
@@ -27,6 +28,7 @@ export class DashboardPage {
   public student: Student = new Student();
   public modules: Module[] = [];
   public moduleSkills: any;
+  public user: User = new User();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider, private authService: AuthServiceProvider) {
 
@@ -44,8 +46,6 @@ export class DashboardPage {
   private setStudent(): void {
     this.apiService.get('getFormations')
       .then((data: any) => {
-
-        console.log('student_data: ', data);
 
         this.modules = [];
         let studentModule: Module;
@@ -158,10 +158,16 @@ export class DashboardPage {
       });
   }
 
-  public showDashboard(studentId: any): void {
+  public getUser() {
+    this.apiService.get('users')
+      .then((data: any) => {
+        this.user = new User();
+        this.user.id = data.id;
+        this.user.lastname = data.lastname;
+        this.user.firstname = data.firstname;
 
-    this.navCtrl.push(DashboardPage, { student: studentId });
-
+        console.log('user_connected_data: ', this.user);
+      })
   }
 
   private setRoot() {

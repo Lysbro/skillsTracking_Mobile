@@ -35,7 +35,7 @@ export class LoginPage {
       this.loading.dismiss();
 
       // on redirige l'utilisateur 
-      this.setPage();
+      this.setPage(result);
 
     }, (err) => {
       this.loading.dismiss();
@@ -64,18 +64,18 @@ export class LoginPage {
     toast.present();
   }
 
-  private setPage(): void {
+  private setPage(user): void {
 
     console.log(this.authService.isLogged());
 
+    console.log('user-connecte: ',user);
     if (this.authService.isLogged()) {
 
       this.authService.getUserTypeId().then(data => {
         
         if (data == 3) {
 
-          this.navCtrl.setRoot(DashboardPage);
-
+          this.navCtrl.setRoot(DashboardPage, user);
         } else if (data == 2) {
 
           this.navCtrl.setRoot(FormationsPage);
