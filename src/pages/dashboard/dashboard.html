@@ -22,12 +22,13 @@
       <ion-list-header>
         Action
       </ion-list-header>
-      <ion-list-header></ion-list-header>  
+
       <ion-list *ngFor="let skill of moduleSkills.skills">
-        <ion-item>{{ skill.name }}</ion-item>
+        <ion-item text-wrap>{{ skill.name }}</ion-item>
+
         <ion-item>
-          <ion-label>Valider par l'élève</ion-label> 
-            <ion-checkbox color="green" (click)="putStudentValidate(progressionId, validation)" [(ngModel)]="skill.progressionDetail.studentValidation" (ionChange)=" updateStudentValidate(skill.progressionDetail.studentProgressionId, skill.progressionDetail.studentValidation)"></ion-checkbox>
+          <ion-label>Valider par l'élève</ion-label>
+          <ion-checkbox color="green" [(ngModel)]="skill.progressionDetail.studentValidation" (ionChange)=" updateValidate(skill.progressionDetail.studentProgressionId, skill.progressionDetail.studentValidation)"></ion-checkbox>
         </ion-item>
 
         <ion-item>
