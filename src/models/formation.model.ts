@@ -1,4 +1,5 @@
 // Models
+import { Report } from './report.model';
 import { Module } from './module.model';
 import { StudentDetails } from './student-details.model';
 import { Student } from './student.model';
@@ -10,6 +11,7 @@ export class Formation {
     name: any;
     students: StudentDetails[] = [];
     modules: Module[] = [];
+    reports: Report[] = [];
 
     constructor (id?: any, name?: any) {
 
@@ -51,6 +53,12 @@ export class Formation {
     public addModule(module: Module): void {
 
         this.modules.push(module);
+
+    }
+
+    public addReport(report: Report): void {
+
+        this.reports.push(report);
         
     }
 

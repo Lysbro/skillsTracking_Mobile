@@ -34,8 +34,10 @@ export class LoginPage {
     this.authService.login(this.loginData).subscribe((result) => {
       this.loading.dismiss();
 
+      console.log('login result', result);
+
       // on redirige l'utilisateur 
-      this.setPage();
+      this.setPage(result);
 
     }, (err) => {
       this.loading.dismiss();
@@ -64,29 +66,25 @@ export class LoginPage {
     toast.present();
   }
 
-  private setPage(): void {
-
-    console.log(this.authService.isLogged());
+  private setPage(user): void {
 
     if (this.authService.isLogged()) {
 
-      this.authService.getUserTypeId().then(data => {
-        
-        if (data == 3) {
+      console.log('test user', user.user_type_id);
 
-          this.navCtrl.setRoot(DashboardPage);
+      if (user.user_type_id == 3) { 
+                    
+        this.navCtrl.setRoot(DashboardPage, user);
 
-        } else if (data == 2) {
+      } else if (user.user_type_id == 2) {
 
-          this.navCtrl.setRoot(FormationsPage);
+        this.navCtrl.setRoot(FormationsPage);
 
-        } else {
+      } else {
 
-          this.navCtrl.setRoot(HomePage); // Qu'est-ce qu'on fait là ???!!
+        this.navCtrl.setRoot(HomePage); // Qu'est-ce qu'on fait là ???!!
 
-        }
-
-      });
+      }
 
     }
 
