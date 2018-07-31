@@ -6,11 +6,12 @@ import { ApiServiceProvider } from './../../providers/api-service/api-service';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 
 // Models
+import { ProgressionDetails } from './../../models/progression-detail.model';
+import { ProgressionTotal } from './../../models/progression-total.model';
 import { Student } from './../../models/student.model';
 import { Module } from './../../models/module.model';
 import { Skill } from './../../models/skill.model';
 import { User } from './../../models/user.model';
-import { ProgressionTotal } from '../../models/progression-total.model';
 
 /**
  * Generated class for the DashboardPage page.
@@ -40,7 +41,6 @@ export class DashboardPage {
       this.lastname = this.navParams.get('lastname');
       this.firstname = this.navParams.get('firstname');
       this.avatar = this.navParams.get('avatar');
-      this.nameFormation = this.navParams.get('formation_id->name')
 
       this.setStudent(this.navParams.get('formation'), this.navParams.get('student'));
       console.log('connection réussi !');
@@ -70,8 +70,8 @@ export class DashboardPage {
 
       for (let i = 0; i < data.modules.length; i++) {
 
-        studentModule = new Module(
-          data.modules[i].id, data.modules[i].name, new ProgressionTotal(data.modules[i].totalSkills, data.modules[i].progression.student, data.modules[i].progression.teacher));
+        studentModule = new Module(data.modules[i].id, data.modules[i].name, 
+          new ProgressionTotal(data.modules[i].totalSkills, data.modules[i].progression.student, data.modules[i].progression.teacher));
 
         for (let j = 0; j < data.modules[i].skills.length; j++) {
 

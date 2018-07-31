@@ -3,10 +3,11 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// Pages
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-
 import { LoginPage } from '../pages/login/login';
+import { ReportsPage } from './../pages/reports/reports';
 
 // Providers 
 import { AuthServiceProvider } from './../providers/auth-service/auth-service';
@@ -28,7 +29,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Login', component: LoginPage },
+      { title: 'Rapports', component: ReportsPage }
     ];
 
   }

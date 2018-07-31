@@ -8,8 +8,10 @@ import { DashboardPage } from './../dashboard/dashboard';
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
 
 // Models
+import { ProgressionTotal } from './../../models/progression-total.model';
 import { Formation } from './../../models/formation.model';
 import { Student } from './../../models/student.model';
+import { Module } from '../../models/module.model';
 
 /**
  * Generated class for the FormationsPage page.
@@ -25,6 +27,7 @@ import { Student } from './../../models/student.model';
 export class FormationsPage {
 
   public formations: Formation[] = [];
+  public student: any;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
@@ -44,33 +47,32 @@ export class FormationsPage {
   private setFormationsList(): void {
 
     this.apiService.get('teacher/myFormations')
-      .then((data: any) => {
+    .then((data: any) => {
 
-        this.formations = [];
-        let formation: Formation;
+      this.formations = [];
 
-        console.log('formations_data: ', data['data']);
+      console.log('formations_data: ', data['data']);
 
-        for (let i = 0; i < data['data'].length; i++) {
+      for (let i = 0; i < data['data'].length; i++) {
 
-          formation = new Formation();
-          formation.id = data['data'][i].id;
-          formation.name = data['data'][i].name;
+        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name));
 
-          console.log('détail_formation: ', formation);
+        for (let j = 0; j < data['data'][i].modules.length; j++) {
 
-          this.formations.push(formation);
-
+          this.formations[i].addModule(new Module(data['data'][i].modules[j].id, data['data'][i].modules[j].name));
+          
         }
 
-        console.log('formations: ', this.formations);
+      }
 
-      })
-      .then(() => {
+      console.log('formations: ', this.formations);
 
-        this.setStudentsListByFormation();
+    })
+    .then(() => {
 
-      });
+      this.setStudentsListByFormation();
+
+    });
 
   }
 
@@ -79,28 +81,26 @@ export class FormationsPage {
     for (let i = 0; i < this.formations.length; i++) {
 
       this.apiService.get('getStudentsOfFormation/' + this.formations[i].id)
-        .then((data: any) => {
+      .then((data: any) => {
 
-          console.log('students_data: ', data);
+        console.log('students_data: ', data);
 
-          let student: Student;
+        for (let j = 0; j < data.length; j++) {
 
-          for (let j = 0; j < data.length; j++) {
+            this.student = new Student();
+            this.student.id = data[j].id;
+            this.student.lastName = data[j].lastname;
+            this.student.firstName = data[j].firstname;
+            this.student.progressionTotal.totalSkills = data[j].progression.totalSkills;
+            this.student.progressionTotal.studentValidations = data[j].progression.studentValidations;
+            this.student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
+          this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
 
-            student = new Student();
-            student.id = data[j].id;
-            student.lastName = data[j].lastname;
-            student.firstName = data[j].firstname;
-            student.progressionTotal.totalSkills = data[j].progression.totalSkills;
-            student.progressionTotal.studentValidations = data[j].progression.studentValidations;
-            student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
+        }
 
-            this.formations[i].students.push(student);
-          }
+        console.log('students: ', this.formations);
 
-          console.log('students: ', this.formations);
-
-        });
+      });
 
     }
 
