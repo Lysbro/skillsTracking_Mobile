@@ -7,9 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="user">dashboard | {{ user.lastname }} {{ user.lastname}}</ion-title>
+    <ion-title>Tableau de bord étudiant</ion-title>
   </ion-navbar>
-
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img src="{{ avatar }}">
+      </ion-thumbnail>
+      <h2>{{ lastname }} {{ firstname }}</h2>
+      <p>Neo Pacific Coder • 2018</p>
+    </ion-item>
+  </ion-list>
 </ion-header>
 
 
