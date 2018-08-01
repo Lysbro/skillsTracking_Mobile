@@ -75,7 +75,7 @@ export class ReportsPage {
 
         for (let j = 0; j < data.length; j++) {
 
-          this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student.lastname, data[j].student.firstname)));
+          this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student[0].lastname, data[j].student[0].firstname)));
 
         }
 
