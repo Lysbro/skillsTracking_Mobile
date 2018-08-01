@@ -76,9 +76,9 @@ export class ApiServiceProvider {
 
         this.http.post(this.apiUrl + url, data, this.options).subscribe(result => {
 
-          console.log('result', result['data']);
+          console.log('result', result);
 
-          resolve(result['data']);
+          resolve(result);
 
         }, err => {
 
@@ -97,12 +97,14 @@ export class ApiServiceProvider {
 
     return new Promise(resolve => {
 
+      console.log('put controle: ', data);
+
       this.setHeaders()
       .then(() => {
 
         this.http.put(this.apiUrl + url, data, this.options).subscribe(result => {
 
-          resolve(result['data']);
+          resolve(result);
 
         }, err => {
 
@@ -126,7 +128,7 @@ export class ApiServiceProvider {
 
         this.http.put(this.apiUrl + url, data, this.options).subscribe(result => {
 
-          resolve(result['data']);
+          resolve(result);
 
         }, err => {
 
@@ -150,7 +152,7 @@ export class ApiServiceProvider {
 
         this.http.delete(this.apiUrl + url, this.options).subscribe(result => {
 
-          resolve(result['data']);
+          resolve(result);
 
         }, err => {
 

@@ -66,17 +66,4 @@ export class AuthServiceProvider {
 
   }
 
-  getUserTypeId() {
-
-    return this.nativeStorage.getItem('user')
-    .then(data => {
-
-      console.log('user_type', data);
-
-      return data.user_type_id;
-
-    });
-
-  }
-
 }
