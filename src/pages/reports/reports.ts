@@ -23,12 +23,14 @@ import { ApiServiceProvider } from './../../providers/api-service/api-service';
 export class ReportsPage {
 
   public formations: Formation[] = [];
+  public reports: Report[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider, private platform: Platform) {
     
     this.platform.ready().then(() => {
 
-      this.setFormationsList();
+      //this.setFormationsList();
+      this.getReportsListByStudent();
 
     });
 
@@ -84,6 +86,29 @@ export class ReportsPage {
     }    
 
     console.log('reports: ', this.formations);
+    
+  }
+
+  private getReportsListByStudent() {
+
+    for (let i = 0; i < this.reports.length; i++) {
+
+      this.apiService.get('report/getStudentsReportByFormation')
+      .then((data: any) => {
+
+        console.log('reports_data: ', data);
+
+        for (let j = 0; j < data.length; j++) {
+
+          this.reports[i].getAutor();
+
+        }
+
+      });
+
+    }    
+
+    console.log('reports: ', this.reports);
     
   }
 

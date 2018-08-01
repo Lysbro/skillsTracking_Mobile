@@ -11,7 +11,6 @@ import { ProgressionTotal } from './../../models/progression-total.model';
 import { Student } from './../../models/student.model';
 import { Module } from './../../models/module.model';
 import { Skill } from './../../models/skill.model';
-import { User } from './../../models/user.model';
 
 /**
  * Generated class for the DashboardPage page.
@@ -42,50 +41,54 @@ export class DashboardPage {
       this.firstname = this.navParams.get('firstname');
       this.avatar = this.navParams.get('avatar');
 
-      this.setStudent(this.navParams.get('formation'), this.navParams.get('student'));
+      this.setStudent();
       console.log('connection réussi !');
 
     });
 
   }
 
-  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashboardPage');
   }
 
-  private setStudent(formationId: any, studentId: void): void {
+  private setStudent() {
 
-    this.apiService.get('getStudentDatas/' + studentId + '/ofFormation/' + formationId)
-    .then((data: any) => {
+    this.apiService.get('getFormations')
+      .then((data: any) => {
 
-      console.log('student_data: ', data);
+        this.modules = [];
+        let studentModule: Module;
 
-      this.student = new Student(data.student.user_id, data.student.user_lastname, data.student.user_firstname);
+        for (let i = 0; i < data.length; i++) {
 
-      console.log('student: ', this.student);
+          studentModule = new Module(data[i].module.id, data[i].module.name,// permet d'injecter les modules dans ma variable StudentModule
+            new ProgressionTotal(data[i].module.totalSkills,
+              data[i].module.progression.student,
+              data[i].module.progression.teacher)
+          );
 
-      this.modules = [];
-      let studentModule: Module;
+          for (let j = 0; j < data[i].module.skills.length; j++) {
+            studentModule.addSkill(new Skill(
+              data[i].module.skills[j].id,
+              data[i].module.skills[j].name,
+              new ProgressionDetails(data[i].module.skills[j].progression.student_progression_id,
+                data[i].module.skills[j].progression.student_validation,
+                data[i].module.skills[j].progression.student_validation_date,
+                data[i].module.skills[j].progression.teacher_validation,
+                data[i].module.skills[j].progression.teacher_validation_date)
+            ));
 
-      for (let i = 0; i < data.modules.length; i++) {
+          }
 
-        studentModule = new Module(data.modules[i].id, data.modules[i].name, 
-          new ProgressionTotal(data.modules[i].totalSkills, data.modules[i].progression.student, data.modules[i].progression.teacher));
-
-        for (let j = 0; j < data.modules[i].skills.length; j++) {
-
-          studentModule.addSkill(new Skill(data.modules[i].skills[j].id, data.modules[i].skills[j].name, new ProgressionDetails(data.modules[i].skills[j].progression.student_progression_id, data.modules[i].skills[j].progression.student_validation, data.modules[i].skills[j].progression.student_validation_date, data.modules[i].skills[j].progression.teacher_validation, data.modules[i].skills[j].progression.teacher_validation_date)));
+          this.modules.push(studentModule);
 
         }
-        
-        this.modules.push(studentModule);
 
-      }
+        console.log('modules: ', this.modules);
 
-      console.log('modules: ', this.modules);
-
-    });
+      });
 
   }
 
@@ -93,15 +96,17 @@ export class DashboardPage {
 
     this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
 
-  } 
+  }
 
-  public updateValidation(progressionId:any, validation: any): void {
+  public updateValidation(progressionId: any, validation: any): void {
 
     console.log('test update: ', [progressionId, validation]);
 
-    this.apiService.put('progression/updateTeacherValidation', { progression_id: progressionId, teacher_validation: validation })
-    .then(data => { console.log('update validation: ', data) });
+    this.apiService.put('progression/updateStudentValidation', { progression_id: progressionId, student_validation: validation })
+      .then(data => { console.log('update validation: ', data) });
 
   }
+
+
 
 }
