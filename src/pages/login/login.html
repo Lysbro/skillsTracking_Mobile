@@ -6,7 +6,8 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding text-center>
+  <ion-img width="80" height="80" src="../../assets/imgs/logoST.png"></ion-img>
   <form (submit)="doLogin()">
     <ion-item>
       <ion-label stacked>Email</ion-label>
@@ -16,7 +17,7 @@
       <ion-label stacked>Password</ion-label>
       <ion-input [(ngModel)]="loginData.password" name="password" type="password" placeholder="Password"></ion-input>
     </ion-item>
-    <button ion-button block type="submit">
+    <button ion-button block round type="submit">
       Login
     </button>
   </form>

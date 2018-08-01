@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -20,7 +20,14 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 // Native component
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
-import { NgCircleProgressModule } from 'ng-circle-progress';
+
+class NativeStorageMock extends NativeStorage {
+  getData(options) {
+    return new Promise((resolve, reject) => {
+      resolve("BASE_64_ENCODED_DATA_GOES_HERE");
+    })
+  }
+}
 @NgModule({
   declarations: [
     ReportDetailsPage,
@@ -36,15 +43,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    NgCircleProgressModule.forRoot({
-      // set defaults here
-      radius: 100,
-      outerStrokeWidth: 16,
-      innerStrokeWidth: 8,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
-      animationDuration: 300,
-    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -62,8 +60,10 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     SplashScreen,
     NativeStorage,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: NativeStorage, useClass: NativeStorageMock },
     AuthServiceProvider,
     ApiServiceProvider
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

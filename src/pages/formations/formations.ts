@@ -91,6 +91,7 @@ export class FormationsPage {
             student.id = data[j].id;
             student.lastName = data[j].lastname;
             student.firstName = data[j].firstname;
+            student.avatar = data[j].avatar;
             student.progressionTotal.totalSkills = data[j].progression.totalSkills;
             student.progressionTotal.studentValidations = data[j].progression.studentValidations;
             student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
@@ -122,12 +123,6 @@ export class FormationsPage {
 
   isGroupShown(group) {
     return this.shownGroup === group;
-  }
-
-  redirectStudent() {
-    let students = this.formations;
-    console.log("avant transit", this.formations);
-    this.navCtrl.push(DashboardPage, { students });
   }
 
 }

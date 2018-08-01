@@ -11,12 +11,13 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let formation of formations; let i=index" text-wrap (click)="toggleGroup(i)" [ngClass]="{active: isGroupShown(i)}">
-      <div>
-        {{formation.name}}
-      </div>
+      <h2>{{formation.name}}</h2>
       <ion-list *ngIf="isGroupShown(i)">
-        <ion-item *ngFor="let student of formation.students" (click)="redirectStudent()">
-          <div>{{student.lastName}}</div>
+        <ion-item *ngFor="let student of formation.students">
+          <ion-avatar item-left>
+            <img [src]="student.avatar">
+          </ion-avatar>
+          <h2 (click)="showDashboard( formation.id , student.id )">{{student.lastName}}</h2>
         </ion-item>
       </ion-list>
     </ion-item>

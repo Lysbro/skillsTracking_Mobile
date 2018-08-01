@@ -3,7 +3,7 @@
     <name>skillsTrackingMobileApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.10.186:8107" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -85,5 +85,11 @@
     <allow-navigation href="http://192.168.1.108:8100" />
     <allow-navigation href="http://192.168.10.186:8100" />
     <plugin name="cordova-plugin-nativestorage" spec="^2.3.2" />
-    <engine name="android" spec="~7.0.0" />
+    <allow-navigation href="http://192.168.10.186:8101" />
+    <allow-navigation href="http://192.168.10.186:8102" />
+    <allow-navigation href="http://192.168.10.186:8103" />
+    <allow-navigation href="http://192.168.10.186:8104" />
+    <allow-navigation href="http://192.168.10.186:8105" />
+    <allow-navigation href="http://192.168.10.186:8107" />
+    <engine name="android" spec="7.0.0" />
 </widget>

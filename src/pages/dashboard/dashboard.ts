@@ -25,6 +25,7 @@ export class DashboardPage {
   public student: Student = new Student();
   public modules: Module[] = [];
   public moduleSkills: any;
+  public shownGroup: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
 
@@ -38,6 +39,18 @@ export class DashboardPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DashboardPage');
+  }
+
+  public toggleGroup(group) {
+    if (this.isGroupShown(group)) {
+      this.shownGroup = null;
+    } else {
+      this.shownGroup = group;
+    }
+  }
+
+  public isGroupShown(group) {
+    return this.shownGroup === group;
   }
 
   private setStudent(formationId: any, studentId: void): void {
@@ -113,7 +126,6 @@ export class DashboardPage {
 
     this.apiService.put('progression/updateTeacherValidation', { progression_id: progressionId, teacher_validation: validation })
       .then(data => { console.log('update validation: ', data) });
-
   }
 
 }
