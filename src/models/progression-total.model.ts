@@ -3,7 +3,7 @@ export class ProgressionTotal {
     totalSkills: any;
     studentValidations: any;
     teacherValidations: any;
-
+  
     constructor (totalSkills?: any, studentValidations?: any, teacherValidations?: any) {
 
         this.totalSkills = totalSkills;
@@ -11,5 +11,4 @@ export class ProgressionTotal {
         this.teacherValidations = teacherValidations;
 
     }
-    
 }
