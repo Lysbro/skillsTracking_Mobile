@@ -44,64 +44,39 @@ export class FormationsPage {
   }
 
   private setFormationsList(): void {
-
     this.apiService.get('teacher/myFormations')
       .then((data: any) => {
-
         this.formations = [];
-
         console.log('formations_data: ', data['data']);
-
         for (let i = 0; i < data['data'].length; i++) {
-
           this.formations.push(new Formation(data['data'][i].id, data['data'][i].name));
-
           for (let j = 0; j < data['data'][i].modules.length; j++) {
-
             this.formations[i].addModule(new Module(data['data'][i].modules[j].id, data['data'][i].modules[j].name));
-
           }
-
         }
-
         console.log('formations: ', this.formations);
-
       })
       .then(() => {
-
         this.setStudentsListByFormation();
-
       });
-
   }
 
   private setStudentsListByFormation(): void {
-
     for (let i = 0; i < this.formations.length; i++) {
-
       this.apiService.get('getStudentsOfFormation/' + this.formations[i].id)
         .then((data: any) => {
-
           console.log('students_data: ', data);
-
           for (let j = 0; j < data.length; j++) {
-
             this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
-
           }
-
           console.log('students: ', this.formations);
-
         });
-
     }
 
   }
 
   public showDashboard(formationId: any, studentId: any): void {
-
     this.navCtrl.push(DashboardPage, { formation: formationId, student: studentId });
-
   }
 
   toggleGroup(group) {

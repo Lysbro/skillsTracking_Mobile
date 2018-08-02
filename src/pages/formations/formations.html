@@ -17,7 +17,7 @@
           <ion-avatar item-left>
             <img [src]="student.avatar">
           </ion-avatar>
-          <h2 (click)="showDashboard( formation.id , student.id )">{{student.lastName}}</h2>
+          <h2 (click)="showDashboard( formation.id , student.getId() )">{{student.getLastName()}} {{student.getFirstName()}}</h2>
         </ion-item>
       </ion-list>
     </ion-item>
