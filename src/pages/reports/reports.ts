@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
+// Pages
+import { ReportDetailsPage } from './../report-details/report-details';
+
 // Models
 import { Student } from './../../models/student.model';
 import { Report } from './../../models/report.model';
@@ -64,7 +67,7 @@ export class ReportsPage {
 
   }
 
-  private setReportsListByFormation() {
+  private setReportsListByFormation(): void {
 
     for (let i = 0; i < this.formations.length; i++) {
 
@@ -84,6 +87,12 @@ export class ReportsPage {
     }    
 
     console.log('reports: ', this.formations);
+    
+  }
+
+  public showReport(reportId: any, formationId: any): void {
+
+    this.navCtrl.push(ReportDetailsPage, { formation: formationId, report: reportId });
     
   }
 
