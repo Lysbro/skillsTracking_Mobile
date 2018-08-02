@@ -3,6 +3,9 @@ export class Student {
     id: any;
     lastName: any;
     firstName: any;
+    avatar: any;
+    email: any;
+    gender: any;
 
     constructor (id?: any, lastName?: any, firstName?: any) {
         
