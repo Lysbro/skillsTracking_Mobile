@@ -87,13 +87,13 @@ export class FormationsPage {
 
         for (let j = 0; j < data.length; j++) {
 
-            this.student = new Student();
-            this.student.id = data[j].id;
-            this.student.lastName = data[j].lastname;
-            this.student.firstName = data[j].firstname;
-            this.student.progressionTotal.totalSkills = data[j].progression.totalSkills;
-            this.student.progressionTotal.studentValidations = data[j].progression.studentValidations;
-            this.student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
+          this.student = new Student();
+          this.student.id = data[j].id;
+          this.student.lastName = data[j].lastname;
+          this.student.firstName = data[j].firstname;
+          this.student.progressionTotal.totalSkills = data[j].progression.totalSkills;
+          this.student.progressionTotal.studentValidations = data[j].progression.studentValidations;
+          this.student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
           this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
 
         }

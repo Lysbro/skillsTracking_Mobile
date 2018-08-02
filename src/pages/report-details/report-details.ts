@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 
-/**
- * Generated class for the ReportDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-report-details',
@@ -14,7 +8,21 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ReportDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public firstname: any;
+  public text: any;
+  public dateModifed: any;
+  public dateCreated: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform) {
+    this.platform.ready().then(() => {
+
+      this.firstname = this.navParams.get('firstname');
+      this.text = this.navParams.get('text');
+      this.dateCreated = this.navParams.get('date_created');
+      this.dateModifed = this.navParams.get('date_modified');
+
+    });
+
   }
 
   ionViewDidLoad() {
