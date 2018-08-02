@@ -7,12 +7,43 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>dashboard</ion-title>
+    <ion-title>Tableau de bord étudiant</ion-title>
   </ion-navbar>
-
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail item-start>
+        <img [src]="avatar">
+      </ion-thumbnail>
+      <h2>{{ lastname }} {{ firstname }}</h2>
+      <p>Neo Pacific Coder • 2018</p>
+    </ion-item>
+  </ion-list>
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list insert>
+    <ion-item *ngFor="let module of modules" (click)="showSkills(module.id)">
+      <h2>{{ module.name }}</h2>
+    </ion-item>
+    <ion-list *ngIf="moduleSkills">
+      <ion-list-header>
+          {{ moduleSkills.name }}
+      </ion-list-header>
 
+      <ion-list *ngFor="let skill of moduleSkills.skills">
+        <ion-item text-wrap>{{ skill.name }}</ion-item>
+
+        <ion-item>
+          <ion-label>Valider par l'élève {{ skill.progressionDetails.studentValidationDate | date:"dd/MM/yyyy" }}</ion-label>
+          <ion-checkbox color="green" [(ngModel)]="skill.progressionDetails.studentValue" (ionChange)=" updateValidation(skill.getProgressionId(), skill.getStudentValue())"></ion-checkbox>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Valider par le formateur {{ skill.progressionDetails.teacherValidationDate | date:"dd/MM/yyyy" }}</ion-label>
+          <ion-checkbox color="green" disabled="true" [(ngModel)]="skill.progressionDetails.teacherValue"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </ion-list>
+  </ion-list>
 </ion-content>

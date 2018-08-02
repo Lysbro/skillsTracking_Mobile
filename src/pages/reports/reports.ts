@@ -1,13 +1,12 @@
+import { ReportDetailsPage } from './../report-details/report-details';
+import { Formation } from './../../models/formation.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 
-// Pages
-import { ReportDetailsPage } from './../report-details/report-details';
 
 // Models
 import { Student } from './../../models/student.model';
 import { Report } from './../../models/report.model';
-import { Formation } from './../../models/formation.model';
 
 // Providers
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
@@ -25,13 +24,15 @@ import { ApiServiceProvider } from './../../providers/api-service/api-service';
 })
 export class ReportsPage {
 
+  public reports: Report[] = [];
   public formations: Formation[] = [];
+  public reportDetails: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider, private platform: Platform) {
-    
+
     this.platform.ready().then(() => {
 
-      this.setFormationsList();
+      this.getReportsListByStudent();
 
     });
 
@@ -41,59 +42,29 @@ export class ReportsPage {
     console.log('ionViewDidLoad ReportsPage');
   }
 
-  private setFormationsList(): void {
-
-    this.apiService.get('teacher/myFormations')
-    .then((data: any) => {
-
-      this.formations = [];
-
-      console.log('formations_data: ', data['data']);
-
-      for (let i = 0; i < data['data'].length; i++) {
-
-        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name));
-
-      }
-
-      console.log('formations: ', this.formations);
-
-    })
-    .then(() => {
-
-      this.setReportsListByFormation();
-
-    });
-
-  }
-
-  private setReportsListByFormation(): void {
-
-    for (let i = 0; i < this.formations.length; i++) {
-
-      this.apiService.get('reportsByFormation/' + this.formations[i].id)
+  private getReportsListByStudent() {
+    this.apiService.get('report/getStudentsReportByFormation')
       .then((data: any) => {
 
-        console.log('reports_data: ', data);
+        console.log('reports_data: ', data['data']);
 
-        for (let j = 0; j < data.length; j++) {
+        let reportData = data['data'];
 
-          this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student[0].lastname, data[j].student[0].firstname)));
+        for (let i = 0; i < reportData.length; i++) {
+
+          this.reports.push(new Report(reportData[i].report_id, reportData[i].created_date, reportData[i].created_date, reportData[i].text,
+            new Student(reportData[i].student_id, reportData[i].studentFirstname, reportData[i].studentLastname)));
 
         }
 
+        console.log('reports: ', this.reports);
+
       });
-
-    }    
-
-    console.log('reports: ', this.formations);
-    
   }
 
-  public showReport(reportId: any, formationId: any): void {
+  public showDetails(reportId: any, reportFirstname: any, reportText: any, reportDateCreate: any, reportDateModified: any): void {
 
-    this.navCtrl.push(ReportDetailsPage, { formation: formationId, report: reportId });
-    
+    this.navCtrl.push(ReportDetailsPage, { id: reportId, text: reportText, firstname: reportFirstname, date_created: reportDateCreate, date_modified: reportDateModified });
+
   }
-
 }

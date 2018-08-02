@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>reportDetails</ion-title>
+    <ion-title>Details rapport</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-list >
+    <h2>{{ firstname }}</h2>
+    <p>{{ text }}</p>
+    <p>créer le {{ dateCreated | date:"dd/MM/yyyy hh:mm:ss" }}</p>
+    <p>modifier le {{ dateModifed | date:"dd/MM/yyyy hh:mm:ss" }}</p>
+  </ion-list>
 </ion-content>
