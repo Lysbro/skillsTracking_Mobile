@@ -25,6 +25,13 @@ export class Report {
 
     }
 
+    
+    public getAuthorName(): any {
+
+        return this.student.getName();
+
+    }
+
     public setAutor(student: Student): void {
 
         this.student = student;

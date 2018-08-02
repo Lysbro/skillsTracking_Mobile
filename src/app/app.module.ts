@@ -1,3 +1,4 @@
+import { ProfilPage } from './../pages/profil/profil';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -31,7 +32,8 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    ProfilPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,8 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    ProfilPage
   ],
   providers: [
     StatusBar,
