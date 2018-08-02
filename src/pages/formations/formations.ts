@@ -54,7 +54,7 @@ export class FormationsPage {
 
       for (let i = 0; i < data['data'].length; i++) {
 
-        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name));
+        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name, data['data'][i].logo, data['data'][i].start_at, data['data'][i].end_at));
 
         for (let j = 0; j < data['data'][i].modules.length; j++) {
 
@@ -86,7 +86,7 @@ export class FormationsPage {
 
         for (let j = 0; j < data.length; j++) {
 
-          this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
+          this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname, data[j].avatar, data[j].gender), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
 
         }
 

@@ -49,7 +49,7 @@ export class DashboardPage {
 
       console.log('student_data: ', data);
 
-      this.student = new Student(data.student.user_id, data.student.user_lastname, data.student.user_firstname);
+      this.student = new Student(data.student.user_id, data.student.user_lastname, data.student.user_firstname, data.student.user_avatar);
 
       console.log('student: ', this.student);
 

@@ -116,4 +116,40 @@ export class StudentDetails {
 
     }
 
+    public getAvatar(): any {
+
+        return this.student.avatar;
+
+    }
+
+    public setAvatar(newAvatar: any): void {
+
+        this.student.avatar = newAvatar;
+
+    }
+
+    public getGender(): any {
+
+        return this.student.gender;
+
+    }
+
+    public setGender(newGender: any): void {
+
+        this.student.gender = newGender;
+
+    }
+
+    public getEmail(): any {
+
+        return this.student.email;
+
+    }
+
+    public setEmail(newEmail: any): void {
+
+        this.student.email = newEmail;
+        
+    }
+
 }

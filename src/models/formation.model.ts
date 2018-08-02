@@ -12,14 +12,17 @@ export class Formation {
     students: StudentDetails[] = [];
     modules: Module[] = [];
     reports: Report[] = [];
-    endAt: any;
     logo: any;
     startAt: any;
+    endAt: any;
 
-    constructor (id?: any, name?: any) {
+    constructor (id?: any, name?: any, logo?: any, startAt?: any, endAt?: any) {
 
         this.id = id;
         this.name = name;
+        this.logo = logo;
+        this.startAt = startAt;
+        this.endAt = endAt;
 
     }
 
