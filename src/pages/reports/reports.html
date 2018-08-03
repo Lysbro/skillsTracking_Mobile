@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <ion-list>
+  <ion-list insert>
     <ion-item *ngFor="let report of reports" (click)="showDetails(report.id, report.student.firstName, report.text, report.date_created, report.date_modified)">
       <h2>{{ report.date_created | date:"dd/MM/yyyy hh:mm"}}</h2>
       <p>{{ report.student.firstName }}</p>

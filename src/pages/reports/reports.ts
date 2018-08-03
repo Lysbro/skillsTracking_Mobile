@@ -42,23 +42,23 @@ export class ReportsPage {
   }
 
   private getReportsListByStudent() {
-      this.apiService.get('report/getStudentsReportByFormation')
-      .then((data: any) => {
-        
-        console.log('reports_data: ', data['data']);
+    this.apiService.get('report/getStudentsReportByFormation')
+    .then((data: any) => {
+      
+      console.log('reports_data: ', data['data']);
 
-        let reportData = data['data'];
+      let reportData = data['data'];
 
-        for (let i = 0; i < reportData.length; i++) {
+      for (let i = 0; i < reportData.length; i++) {
 
-          this.reports.push(new Report(reportData[i].report_id, reportData[i].created_date, reportData[i].last_edit_date, reportData[i].text,
-            new Student(reportData[i].student_id, reportData[i].studentFirstname, reportData[i].studentLastname)));
+        this.reports.push(new Report(reportData[i].report_id, reportData[i].created_date, reportData[i].last_edit_date, reportData[i].text,
+          new Student(reportData[i].student_id, reportData[i].studentFirstname, reportData[i].studentLastname)));
 
-        }
-        
-        console.log('reports: ', this.reports);
+      }
+      
+      console.log('reports: ', this.reports);
 
-      });
+    });
   }
 
   public showDetails(reportId: any, reportFirstname: any, reportText: any, reportDateCreate: any, reportDateModified: any): void {

@@ -4,7 +4,7 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 //page
 import { User } from './../../models/user.model';
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
-
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
 @Component({
   selector: 'page-profil',
   templateUrl: 'profil.html',
@@ -12,8 +12,12 @@ import { ApiServiceProvider } from '../../providers/api-service/api-service';
 export class ProfilPage {
   public users: User[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
-  
+  constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider, private authService: AuthServiceProvider) {
+    this.platform.ready().then(() => {
+
+      this.getUser();
+
+    });
   }
 
   ionViewDidLoad() {
