@@ -31,7 +31,6 @@ export class DashboardPage {
   public lastname: any;
   public firstname: any;
   public avatar: any;
-  public nameFormation: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider, private authService: AuthServiceProvider) {
 
