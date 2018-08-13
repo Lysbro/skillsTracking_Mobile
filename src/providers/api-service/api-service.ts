@@ -166,4 +166,8 @@ export class ApiServiceProvider {
 
   }
 
+  set(url): any {
+    return this.http.get(this.apiUrl + url, this.options);
+  }
+
 }

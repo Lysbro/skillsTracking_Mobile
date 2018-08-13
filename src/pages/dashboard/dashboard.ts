@@ -4,8 +4,10 @@ import { NavController, NavParams, Platform } from 'ionic-angular';
 // Providers
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
 import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
+import { environment } from './../../environments/environment';
 
 // Models
+import { Formation } from './../../models/formation.model';
 import { ProgressionDetails } from './../../models/progression-detail.model';
 import { ProgressionTotal } from './../../models/progression-total.model';
 import { Student } from './../../models/student.model';
@@ -25,12 +27,23 @@ import { Skill } from './../../models/skill.model';
 })
 export class DashboardPage {
 
+  environment = environment;
   public student: Student = new Student();
   public modules: Module[] = [];
   public moduleSkills: any;
   public lastname: any;
   public firstname: any;
   public avatar: any;
+  public nameFormation: any;
+  public max = 100;
+  public current = 35;
+  public totalSkills = 0;
+  public totalStudentValidation = 0;
+  public totalTeacherValidation = 0;
+  public me: any;
+  public dataFormation: any;
+  public formation: any;
+  public formationId: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider, private authService: AuthServiceProvider) {
 
@@ -39,6 +52,8 @@ export class DashboardPage {
       this.lastname = this.navParams.get('lastname');
       this.firstname = this.navParams.get('firstname');
       this.avatar = this.navParams.get('avatar');
+      this.formationId = this.navParams.get('formation_id');
+      this.formation = {};
 
       this.setStudent();
       console.log('connection réussi !');
@@ -53,6 +68,12 @@ export class DashboardPage {
   }
 
   private setStudent() {
+    this.apiService.get('formation/' + this.formationId).then((data: any) => {
+      
+      this.formation = data;
+
+      console.log('formation: ', this.formation);
+    });
 
     this.apiService.get('getFormations')
       .then((data: any) => {
@@ -69,6 +90,7 @@ export class DashboardPage {
           );
 
           for (let j = 0; j < data[i].module.skills.length; j++) {
+            this.totalSkills++;
             studentModule.addSkill(new Skill(
               data[i].module.skills[j].id,
               data[i].module.skills[j].name,
@@ -104,6 +126,24 @@ export class DashboardPage {
     this.apiService.put('progression/updateStudentValidation', { progression_id: progressionId, student_validation: validation })
       .then(data => { console.log('update validation: ', data) });
 
+  }
+
+  onChange(moduleId: any) {
+    console.log('onChange');
+    const index = this.modules.indexOf(moduleId);
+    if (index === -1) {
+      this.modules.push(moduleId);
+    } else {
+      this.modules.splice(index, 1);
+    }
+  }
+
+  isStudentValidated(moduleId: any) {
+    return this.modules.indexOf(moduleId) >= 0;
+  }
+
+  stateText(moduleId: any) {
+    return (this.modules.indexOf(moduleId) >= 0) ? 'validé' : 'à valider';
   }
 
 

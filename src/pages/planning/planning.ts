@@ -1,16 +1,10 @@
-import { Planning } from './../../models/planning.model';
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { ApiServiceProvider } from '../../providers/api-service/api-service';
-/**
- * Generated class for the PlanningPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Planning } from './../../models/planning.model';
 
 @Component({
   selector: 'page-planning',
