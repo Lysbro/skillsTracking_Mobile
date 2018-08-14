@@ -28,11 +28,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <!-- <ion-list>
     <h3>Tout les modules</h3>
     <round-progress [current]="current" [radius]="45" [color]="environment.progressColorTeacher" [stroke]="8" [max]="environment.progressMax"[stroke]="environment.progressStrokeTeacher"></round-progress>
     <round-progress [current]="current" [radius]="45" [color]="environment.progressColorStudent" [stroke]="10" [max]="environment.progressMax"[stroke]="environment.progressStrokeStudent"></round-progress>
-  </ion-list>
+  </ion-list> -->
 
   <ion-list insert>
     <ion-item *ngFor="let module of modules" (click)="showSkills(module.id)">
