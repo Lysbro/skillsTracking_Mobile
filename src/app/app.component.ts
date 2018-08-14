@@ -1,3 +1,4 @@
+import { PlanningPage } from './../pages/planning/planning';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -30,6 +31,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'Login', component: LoginPage },
+      { title: 'Planning', component: PlanningPage },
       { title: 'Rapports', component: ReportsPage }
     ];
 

@@ -1,0 +1,25 @@
+<!--
+  Generated template for the PlanningPage page.
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Planning</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list insert>
+    <ion-item *ngFor="let planning of planning" >
+      <h2>{{ planning.name }}</h2>
+      <p>créer le{{ planning.dateCreated | date:"dd/MM/yyyy hh:mm"}}</p>
+      <p>modifier le {{ planning.dateModifed | date:"dd/MM/yyyy hh:mm"}}</p>
+      <p>{{ planning.PDF }}</p>
+      <button pull right(click)="downloadAndOpenPdf(planning.PDF, planning.id)"><ion-icon name="md-download"></ion-icon></button>
+    </ion-item>
+  </ion-list>
+</ion-content>
