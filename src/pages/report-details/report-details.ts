@@ -44,7 +44,7 @@ export class ReportDetailsPage {
 
       console.log('data_report: ', data[0]);
 
-      this.report = new Report(data[0].report_id, data[0].report_date, new Student(data[0].student_id, data[0].author[0].lastname, data[0].author[0].firstname), data[0].text);
+      this.report = new Report(data[0].report_id, data[0].report_date, new Student(data[0].student_id, data[0].author[0].lastname, data[0].author[0].firstname), data[0].text, data[0].created_at);
 
       console.log('report: ', this.report);
 

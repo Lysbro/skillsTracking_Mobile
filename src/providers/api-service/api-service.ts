@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage';
 
+// Env
+import { Environment } from './../../environment/environment';
+
 
 @Injectable()
 export class ApiServiceProvider {
   
-  apiUrl: string = "http://skillstracking.motjo.io/api/";
   private options: any;
-
 
   constructor(public http: HttpClient, private nativeStorage: NativeStorage) {    
 
@@ -24,13 +25,7 @@ export class ApiServiceProvider {
 
       this.options = {
 
-        headers: new HttpHeaders({
-
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + data.token,
-          'Content-Type': 'application/json'
-
-        })
+        headers: new HttpHeaders({ 'Accept': 'application/json', 'Authorization': 'Bearer ' + data.token, 'Content-Type': 'application/json' })
 
       };
     
@@ -48,7 +43,7 @@ export class ApiServiceProvider {
       this.setHeaders()                      
       .then(() => {
 
-        this.http.get(this.apiUrl + url, this.options).subscribe(result => {
+        this.http.get(Environment._API_URL + url, this.options).subscribe(result => {
 
           console.log('result', result);
 
@@ -74,7 +69,7 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.post(this.apiUrl + url, data, this.options).subscribe(result => {
+        this.http.post(Environment._API_URL + url, data, this.options).subscribe(result => {
 
           console.log('result', result);
 
@@ -102,7 +97,7 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.put(this.apiUrl + url, data, this.options).subscribe(result => {
+        this.http.put(Environment._API_URL + url, data, this.options).subscribe(result => {
 
           resolve(result);
 
@@ -126,7 +121,7 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.put(this.apiUrl + url, data, this.options).subscribe(result => {
+        this.http.put(Environment._API_URL + url, data, this.options).subscribe(result => {
 
           resolve(result);
 
@@ -150,7 +145,7 @@ export class ApiServiceProvider {
       this.setHeaders()
       .then(() => {
 
-        this.http.delete(this.apiUrl + url, this.options).subscribe(result => {
+        this.http.delete(Environment._API_URL + url, this.options).subscribe(result => {
 
           resolve(result);
 

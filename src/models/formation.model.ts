@@ -1,3 +1,6 @@
+// Env
+import { Environment } from './../environment/environment';
+
 // Models
 import { Report } from './report.model';
 import { Module } from './module.model';
@@ -15,14 +18,16 @@ export class Formation {
     logo: any;
     startAt: any;
     endAt: any;
+    amount: any;
 
-    constructor (id?: any, name?: any, logo?: any, startAt?: any, endAt?: any) {
+    constructor (id?: any, name?: any, logo?: any, startAt?: any, endAt?: any, amount?: any) {
 
         this.id = id;
         this.name = name;
-        this.logo = logo;
+        this.logo = Environment._APP_LOGO_URL + logo;
         this.startAt = startAt;
         this.endAt = endAt;
+        this.amount = amount;
 
     }
 

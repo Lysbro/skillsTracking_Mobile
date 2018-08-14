@@ -5,8 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Pages
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { FormationsPage } from '../pages/formations/formations';
 import { DashboardPage } from '../pages/dashboard/dashboard';
@@ -29,8 +27,6 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     DashboardPage,
     FormationsPage,
     MyApp,
-    HomePage,
-    ListPage,
     LoginPage
   ],
   imports: [
@@ -45,8 +41,6 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     DashboardPage,
     FormationsPage,
     MyApp,
-    HomePage,
-    ListPage,
     LoginPage
   ],
   providers: [

@@ -86,7 +86,7 @@ export class FormationsPage {
 
         for (let j = 0; j < data.length; j++) {
 
-          this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname, data[j].avatar, data[j].gender), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
+          this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname, data[j].avatar, data[j].email, data[j].gender), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
 
         }
 

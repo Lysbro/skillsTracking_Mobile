@@ -52,7 +52,7 @@ export class ReportsPage {
 
       for (let i = 0; i < data['data'].length; i++) {
 
-        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name));
+        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name, data['data'][i].logo, data['data'][i].start_at, data['data'][i].end_at, data['data'][i].total_students));
 
       }
 
@@ -78,7 +78,7 @@ export class ReportsPage {
 
         for (let j = 0; j < data.length; j++) {
 
-          this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student[0].lastname, data[j].student[0].firstname)));
+          this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student[0].lastname, data[j].student[0].firstname),  '', data[j].created_at));
 
         }
 

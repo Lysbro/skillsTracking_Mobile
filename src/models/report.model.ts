@@ -7,13 +7,15 @@ export class Report {
     date: any;
     student: Student = new Student();
     text: any;
+    createdAt: any;
 
-    constructor (id?: any, date?: any, student?: any, text?: any) {
+    constructor (id?: any, date?: any, student?: any, text?: any, createdAt?: any) {
 
         this.id = id;
         this.date = date;
         this.student = student;
         this.text = text;
+        this.createdAt = createdAt;
 
     }
 

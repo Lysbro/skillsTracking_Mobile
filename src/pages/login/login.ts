@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { HomePage } from '../home/home';
-import { NativeStorage } from '@ionic-native/native-storage';
 
 // Pages
 import { FormationsPage } from './../formations/formations';
@@ -14,7 +12,6 @@ import { DashboardPage } from './../dashboard/dashboard';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -25,19 +22,19 @@ export class LoginPage {
   loginData = { email: '', password: '' };
   data: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private nativeStorage: NativeStorage, public authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthServiceProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
 
   }
 
   doLogin() {
     this.showLoader();
-    this.authService.login(this.loginData).subscribe((result) => {
+    this.authService.login(this.loginData).subscribe((data: any) => {
       this.loading.dismiss();
 
-      console.log('login result', result);
+      console.log('login result', data);
 
       // on redirige l'utilisateur 
-      this.setPage(result);
+      this.setPage(data);
 
     }, (err) => {
       this.loading.dismiss();
@@ -66,11 +63,9 @@ export class LoginPage {
     toast.present();
   }
 
-  private setPage(user): void {
+  private setPage(user: any): void {
 
     if (this.authService.isLogged()) {
-
-      console.log('test user', user.user_type_id);
 
       if (user.user_type_id == 3) { 
                     
@@ -82,7 +77,7 @@ export class LoginPage {
 
       } else {
 
-        this.navCtrl.setRoot(HomePage); // Qu'est-ce qu'on fait là ???!!
+       // faire afficher un message ou attendre la réponse du client pour savoir quels sont les accès à gérer
 
       }
 
