@@ -1,19 +1,24 @@
 <ion-menu [content]="content">
   <ion-header class="headerSide">
-    <ion-navbar>
+    <ion-toolbar color = "success">
       <ion-title>Menu</ion-title>
-    </ion-navbar>
+    </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+          <ion-icon name="{{p.icon}}" md="md-{{p.icon}}"></ion-icon>
+          &nbsp; &nbsp;{{p.title}}
       </button>
       <button menuClose ion-item (click)="logout()">
-        Déconnexion 
+          <ion-icon name="exit" md="md-exit"></ion-icon>
+          &nbsp; &nbsp;Déconnexion 
       </button>
     </ion-list>
+  </ion-content>
+  <ion-content>
+
   </ion-content>
 
 </ion-menu>

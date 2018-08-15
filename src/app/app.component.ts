@@ -1,6 +1,6 @@
 import { PlanningPage } from './../pages/planning/planning';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -22,17 +22,17 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider, private events: Events) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Accueil', component: DashboardPage },
-      { title: 'Rapports', component: ReportsPage },
-      { title: 'Planning', component: PlanningPage},
-      { title: 'Profil', component: ProfilPage },
+      { title: 'Accueil', component: DashboardPage, icon:'home' },
+      { title: 'Rapports', component: ReportsPage, icon:'document' },
+      { title: 'Planning', component: PlanningPage, icon:'calendar'},
+      { title: 'Profil', component: ProfilPage, icon:'person'},
       //{ title: 'Login', component: LoginPage },
     ];
 
