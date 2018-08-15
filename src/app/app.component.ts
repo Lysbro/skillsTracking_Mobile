@@ -6,6 +6,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // Pages
 import { LoginPage } from '../pages/login/login';
 import { ReportsPage } from './../pages/reports/reports';
+import { FormationsPage } from './../pages/formations/formations';
+import { DashboardPage } from './../pages/dashboard/dashboard';
 
 // Providers 
 import { AuthServiceProvider } from './../providers/auth-service/auth-service';
@@ -21,10 +23,11 @@ export class MyApp {
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider) {
+    
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Accueil', component: null },
       { title: 'Rapports', component: ReportsPage }
     ];
 
@@ -36,6 +39,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
     });
   }
 

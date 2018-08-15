@@ -137,7 +137,7 @@ export class DashboardPage {
   public showSkills(moduleId: any): void {
 
     this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
-
+    
   } 
 
   public updateValidation(progressionId:any, validation: any): void {

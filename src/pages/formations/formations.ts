@@ -13,6 +13,9 @@ import { Formation } from './../../models/formation.model';
 import { Student } from './../../models/student.model';
 import { Module } from '../../models/module.model';
 
+// Env
+import { Environment } from './../../environment/environment';
+
 /**
  * Generated class for the FormationsPage page.
  *
@@ -27,7 +30,6 @@ import { Module } from '../../models/module.model';
 export class FormationsPage {
 
   public formations: Formation[] = [];
-
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
 
@@ -45,7 +47,7 @@ export class FormationsPage {
 
   private setFormationsList(): void {
 
-    this.apiService.get('teacher/myFormations')
+    this.apiService.get(Environment._TEACHER_URL.formationsUrl)
     .then((data: any) => {
 
       this.formations = [];
@@ -79,7 +81,7 @@ export class FormationsPage {
 
     for (let i = 0; i < this.formations.length; i++) {
 
-      this.apiService.get('getStudentsOfFormation/' + this.formations[i].id)
+      this.apiService.get(Environment._TEACHER_URL.studentsByFormation + this.formations[i].id)
       .then((data: any) => {
 
         console.log('students_data: ', data);

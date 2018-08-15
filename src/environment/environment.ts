@@ -9,15 +9,19 @@ export const Environment = {
     _STUDENT_URL: {
 
         dashboardUrl: 'getFormations',
-        dashboardUrlSkillUpdate: 'progression/updateStudentValidation'
+        dashboardUrlSkillUpdate: 'progression/updateStudentValidation',
+        reportsByFormation: 'report/getStudentsReportByFormation'
 
     },
 
     _TEACHER_URL: {
 
+        formationsUrl: 'teacher/myFormations',
+        studentsByFormation: 'getStudentsOfFormation/',
         dashboardUrl1: 'getStudentDatas/',
         dashboardUrl2: '/ofFormation/',
-        dashboardUrlSkillUpdate: 'progression/updateTeacherValidation' 
+        dashboardUrlSkillUpdate: 'progression/updateTeacherValidation',
+        reportsByFormation: 'reportsByFormation/'
 
     }
 

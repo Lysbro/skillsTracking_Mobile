@@ -15,4 +15,21 @@
 
 <ion-content padding>
 
+  <ion-card *ngFor="let formation of formations">
+    <ion-card-header>
+      {{ formation.name }}
+    </ion-card-header>
+  
+    <ion-list *ngFor="let report of formation.reports">
+
+      <button ion-item (tap)="showReport(report.id, formation.id)">
+        <ion-icon name="cart" item-start></ion-icon>
+        <h2>Rédigé par: {{ report.getAuthorName() }}</h2>
+        <h3>Rapport du: {{ report.date }}</h3>
+        <p>Rédigé le: {{ report.createdAt }}</p>
+      </button>
+  
+    </ion-list>
+  </ion-card>
+
 </ion-content>

@@ -15,4 +15,50 @@
 
 <ion-content>
 
+  <ion-list *ngIf="formations">
+    <ion-item *ngFor="let formation of formations">
+
+      <ion-avatar item-start>
+        <img src="{{ formation.logo }}">
+      </ion-avatar>
+      <h2>{{ formation.name }}</h2>
+      <p>
+        Début de la formation: {{ formation.startAt }}
+        <br/>
+        Fin de la formation: {{ formation.endAt }}
+      </p>
+
+      <ion-list>
+        <ion-list-header>
+          Modules de la formation
+        </ion-list-header>
+        <ion-item *ngFor="let module of formation.modules">{{ module.name }}</ion-item>
+      </ion-list>
+
+      <ion-list>        
+        <ion-list-header>
+          Etudiants de la formation
+        </ion-list-header>
+        <ion-item *ngFor="let student of formation.students" (tap)="showDashboard(formation.getId(), student.getId())">
+          <ion-avatar item-start>
+            <img src="{{ student.getAvatar() }}">
+          </ion-avatar>
+          <h2>{{ student.getName() }}</h2>
+          <h3>Nb {{ student.getSkillsCount() }}</h3>
+          <p>
+            Nb de validations étudiantes: 
+            <br/>
+            {{ student.getStudentValidation() }}
+          </p>
+          <p>
+            Nb de validations formateurs: 
+            <br/>
+            {{ student.getTeacherValidation() }}
+          </p>
+        </ion-item>
+      </ion-list>
+
+    </ion-item>
+  </ion-list>
+
 </ion-content>

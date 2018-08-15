@@ -11,6 +11,10 @@ import { Formation } from './../../models/formation.model';
 
 // Providers
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
+import { AuthServiceProvider } from './../../providers/auth-service/auth-service';
+
+// Env
+import { Environment } from './../../environment/environment';
 
 /**
  * Generated class for the ReportsPage page.
@@ -25,13 +29,34 @@ import { ApiServiceProvider } from './../../providers/api-service/api-service';
 })
 export class ReportsPage {
 
+  public user: any;
   public formations: Formation[] = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider, private platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private apiService: ApiServiceProvider, private platform: Platform, private authService: AuthServiceProvider) {
     
     this.platform.ready().then(() => {
 
-      this.setFormationsList();
+      this.authService.getAuth()
+      .then((user: any) => {
+
+        this.user = user;
+        let url: any;
+
+        switch (this.user.user_type_id) {
+
+          case 2:
+            url = Environment._TEACHER_URL.formationsUrl;
+            this.setFormationsList(url);
+            break;
+          case 3:
+            url = Environment._STUDENT_URL.reportsByFormation;
+            this.setReportsListByFormation(url);
+            default:
+              console.log('type utilisateur non-reconnu');
+
+        }
+
+      });
 
     });
 
@@ -41,9 +66,9 @@ export class ReportsPage {
     console.log('ionViewDidLoad ReportsPage');
   }
 
-  private setFormationsList(): void {
+  private setFormationsList(url: any): void {
 
-    this.apiService.get('teacher/myFormations')
+    this.apiService.get(url)
     .then((data: any) => {
 
       this.formations = [];
@@ -61,28 +86,53 @@ export class ReportsPage {
     })
     .then(() => {
 
-      this.setReportsListByFormation();
+      let url: any = Environment._TEACHER_URL.reportsByFormation;
+
+      this.setReportsListByFormation(url);
 
     });
 
   }
 
-  private setReportsListByFormation(): void {
+  private setReportsListByFormation(url: any): void {
 
-    for (let i = 0; i < this.formations.length; i++) {
+    switch (this.user.user_type_id) {
 
-      this.apiService.get('reportsByFormation/' + this.formations[i].id)
-      .then((data: any) => {
+      case 2:
+        for (let i = 0; i < this.formations.length; i++) {
 
-        console.log('reports_data: ', data);
+          this.apiService.get(url + this.formations[i].id)
+          .then((data: any) => {
+    
+            console.log('reports_data: ', data);
+    
+            for (let j = 0; j < data.length; j++) {
+    
+              this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student[0].lastname, data[j].student[0].firstname),  '', data[j].report_rate, data[j].report_is_daily, data[j].created_at, data[j].updated_at));
+    
+            }
+    
+          });
+    
+        } 
+        break;
+      case 3:
+        this.apiService.get(url)
+        .then((data: any) => {
 
-        for (let j = 0; j < data.length; j++) {
+          console.log('reports_data: ', data);
+          this.formations[0] = new Formation(data['data'][0].formation_id, data['data'][0].name);
 
-          this.formations[i].addReport(new Report(data[j].report_id, data[j].report_date, new Student(data[j].student_id, data[j].student[0].lastname, data[j].student[0].firstname),  '', data[j].created_at));
+          for (let i = 0; i < data['data'].length; i++) {
 
-        }
+            this.formations[0].addReport(new Report(data['data'][i].report_id, data['data'][i].report_date, new Student(data['data'][i].student_id, data['data'][i].studentLastname, data['data'][i].studentLastname), data['data'][i].text, data['data'][i].report_rate, data['data'][i].is_daily, data['data'][i].created_date, data['data'][i].last_edit_date));
 
-      });
+          }
+
+        });
+        break;
+      default:
+        console.log('type utilisateur non-reconnu');
 
     }    
 

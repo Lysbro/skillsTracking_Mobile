@@ -15,4 +15,28 @@
 
 <ion-content padding>
 
+  <ion-card *ngIf="report">
+
+    <ion-card-header>
+      {{ report.getAuthorName() }}
+    </ion-card-header>
+  
+    <ion-card-content>
+
+      <ion-card>
+
+        <ion-card-header>
+          Rapport du: {{ report.date }}
+        </ion-card-header>
+
+        <ion-card-content>
+          {{ report.text }}
+        </ion-card-content>
+
+      </ion-card>
+
+    </ion-card-content>
+  
+  </ion-card>
+
 </ion-content>

@@ -15,4 +15,77 @@
 
 <ion-content padding>
 
+  <ion-card>
+
+    <ion-card-header>
+      <img src="{{ student.avatar }}"/>
+      <ion-card-content>
+        <ion-card-title>
+          {{ student.getName() }}
+        </ion-card-title>
+        <p>
+          {{ student.email }}
+        </p>
+      </ion-card-content>
+    </ion-card-header>
+  
+    <ion-list>
+
+      <button ion-item *ngFor="let module of modules" (tap)="showSkills(module.id)">
+        <ion-icon name="cart" item-start></ion-icon>
+        {{ module.name }}
+      </button>
+  
+    </ion-list>
+
+  </ion-card>
+
+  <ion-card *ngIf="moduleSkills">
+
+    <ion-card-header>
+      {{ moduleSkills.name }}
+    </ion-card-header>
+  
+    <ion-list>
+
+      <ion-card *ngFor="let skill of moduleSkills.skills">
+
+        <ion-card-header>
+          {{ skill.getName() }}
+        </ion-card-header>
+
+        <ion-list>
+
+          <div *ngIf="user.user_type_id == 2">            
+            <ion-item>
+              <ion-label>Validation formateur</ion-label>
+              <ion-checkbox [(ngModel)]="skill.progressionDetails.teacherValue" (ionChange)="updateValidation(skill.getProgressionId(), skill.getTeacherValue())"></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label>Validation étudiante</ion-label>
+              <ion-checkbox disabled="true" [(ngModel)]="skill.progressionDetails.studentValue"></ion-checkbox>
+            </ion-item>
+          </div>
+
+          <div *ngIf="user.user_type_id == 3">         
+            <ion-item>
+              <ion-label>Validation formateur</ion-label>
+              <ion-checkbox disabled="true" [(ngModel)]="skill.progressionDetails.teacherValue" ></ion-checkbox>
+            </ion-item>
+            
+            <ion-item>
+              <ion-label>Validation étudiante</ion-label>
+              <ion-checkbox [(ngModel)]="skill.progressionDetails.studentValue" (ionChange)="updateValidation(skill.getProgressionId(), skill.getStudentValue())"></ion-checkbox>
+            </ion-item>
+          </div>          
+
+        </ion-list>
+
+      </ion-card>   
+
+    </ion-list>
+
+  </ion-card>
+
 </ion-content>
