@@ -26,7 +26,7 @@ export class PlanningPage {
 
   getPDF(){
 
-    this.apiService.get('getCalendar/ofFomation/1')
+    this.apiService.get('students/calendar')
     .then((data: any) => {
 
       for(let i = 0; i < data.length; i++) {

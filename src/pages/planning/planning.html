@@ -20,7 +20,7 @@
       <p>créer le{{ planning.dateCreated | date:"dd/MM/yyyy hh:mm"}}</p>
       <p>modifier le {{ planning.dateModifed | date:"dd/MM/yyyy hh:mm"}}</p>
       <p>{{ planning.PDF }}</p>
-      <button pull right(click)="downloadAndOpenPdf(planning.PDF, planning.id)"><ion-icon name="md-download"></ion-icon></button>
+      <button (click)="downloadAndOpenPdf(planning.PDF, planning.id)"><ion-icon name="md-download"></ion-icon></button>
     </ion-item>
   </ion-list>
 </ion-content>
