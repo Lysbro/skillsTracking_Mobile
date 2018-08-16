@@ -24,20 +24,18 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider, private events: Events) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Accueil', component: DashboardPage, icon:'home' },
-      { title: 'Rapports', component: ReportsPage, icon:'document' },
+      { title: 'Accueil', component: DashboardPage, icon:'home'},
+      { title: 'Rapports', component: ReportsPage, icon:'document'},
       { title: 'Planning', component: PlanningPage, icon:'calendar'},
       { title: 'Profil', component: ProfilPage, icon:'person'},
-      //{ title: 'Login', component: LoginPage },
     ];
 
-  }
-
+}
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
