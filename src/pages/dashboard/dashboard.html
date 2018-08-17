@@ -1,9 +1,4 @@
-<!--
-  Generated template for the DashboardPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Accueil</ion-title>
@@ -28,17 +23,19 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- <ion-list>
-    <h3>Tout les modules</h3>
-    <round-progress [current]="current" [radius]="45" [color]="environment.progressColorTeacher" [stroke]="8" [max]="environment.progressMax"[stroke]="environment.progressStrokeTeacher"></round-progress>
-    <round-progress [current]="current" [radius]="45" [color]="environment.progressColorStudent" [stroke]="10" [max]="environment.progressMax"[stroke]="environment.progressStrokeStudent"></round-progress>
-  </ion-list> -->
 
-  <ion-list insert>
-    <ion-item *ngFor="let module of modules" (click)="showSkills(module.id)">
-      <h2>{{ module.name }}</h2>
-    </ion-item>
-  
+  <ion-slides initialSlide=0 loop=true>
+    <ion-slide class="roundProgressBarWrapper slideImportant" *ngFor="let module of modules" (click)="showSkills(module.id)">
+      <div class="moduleName">{{ module.name }}</div>
+        <round-progress class="roundProgressBarTeacher" [current]="module.progressionTotal.teacherValidations * 100/module.progressionTotal.totalSkills" [radius]="45" [color]="environment.progressColorTeacher" [max]="environment.progressMax" [stroke]="environment.progressStrokeTeacher"></round-progress>
+        <round-progress class="roundProgressBarStudent" [current]="module.progressionTotal.studentValidations * 100/module.progressionTotal.totalSkills" [radius]="45" [color]="environment.progressColorStudent" [max]="environment.progressMax" [stroke]="environment.progressStrokeStudent"></round-progress>
+        <div class="progressTeacherText red">{{ (module.progressionTotal.teacherValidations * 100/module.progressionTotal.totalSkills) | number: '1.0-0' }}%</div>
+        <div class="progressStudentText purple">{{ (module.progressionTotal.studentValidations * 100/module.progressionTotal.totalSkills) | number: '1.0-0' }}%</div>
+      </ion-slide>
+    </ion-slides>
+    <div class="swiper-button-next" (click)="slideNext()"></div>
+    <div class="swiper-button-prev" (click)="slidePrev()"></div>
+
     <ion-list *ngIf="moduleSkills">
       <ion-card *ngFor="let skill of moduleSkills.skills">
         <ion-card-header>
@@ -56,14 +53,6 @@
           <ion-label item-content>Formateur validé le {{ skill.progressionDetails.teacherValidationDate | date: "dd/MM/yyyy" }}</ion-label>
           <ion-checkbox color="secondary" disabled="true" [(ngModel)]="skill.progressionDetails.teacherValue" (ionChange)=" updateValidation(skill.getProgressionId(), skill.getStudentValue())" item-end></ion-checkbox>
         </ion-item> 
-            <!-- <div>
-            <ion-label>Valider par l'élève {{ skill.progressionDetails.studentValidationDate | date: "dd/MM/yyyy" }}</ion-label>
-            <ion-checkbox color="green" [(ngModel)]="skill.progressionDetails.studentValue" (ionChange)=" updateValidation(skill.getProgressionId(), skill.getStudentValue())"></ion-checkbox>
-  
-            <ion-label>Valider par le formateur {{ skill.progressionDetails.teacherValidationDate | date: "dd/MM/yyyy" }}</ion-label>
-            <ion-checkbox color="green" disabled="true" [(ngModel)]="skill.progressionDetails.teacherValue"></ion-checkbox>
-          </div> -->
       </ion-card>
-    </ion-list>
   </ion-list>
 </ion-content>

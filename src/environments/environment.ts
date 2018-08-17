@@ -17,8 +17,8 @@ export const environment = {
   progressRadiusStudent: 56,
   progressColorTeacher: '#E689B8',
   progressColorStudent: '#A3A1FB',
-  progressStrokeTeacher: 10,
-  progressStrokeStudent: 10,
+  progressStrokeTeacher: 7,
+  progressStrokeStudent: 7,
 
   progressMax: 100
 };

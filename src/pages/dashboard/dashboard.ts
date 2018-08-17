@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform } from 'ionic-angular';
+import { ViewChild } from '@angular/core';
+import { Slides } from 'ionic-angular';
+
 
 // Providers
 import { ApiServiceProvider } from './../../providers/api-service/api-service';
@@ -7,7 +10,6 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
 import { environment } from './../../environments/environment';
 
 // Models
-import { Formation } from './../../models/formation.model';
 import { ProgressionDetails } from './../../models/progression-detail.model';
 import { ProgressionTotal } from './../../models/progression-total.model';
 import { Student } from './../../models/student.model';
@@ -26,6 +28,8 @@ import { Skill } from './../../models/skill.model';
   templateUrl: 'dashboard.html',
 })
 export class DashboardPage {
+
+  @ViewChild(Slides) slides: Slides;
 
   environment = environment;
   public student: Student = new Student();
@@ -128,24 +132,25 @@ export class DashboardPage {
 
   }
 
-  onChange(moduleId: any) {
-    console.log('onChange');
-    const index = this.modules.indexOf(moduleId);
-    if (index === -1) {
-      this.modules.push(moduleId);
-    } else {
-      this.modules.splice(index, 1);
+  goToSlide() {
+    this.slides.loop = true;
+    this.slides.startAutoplay()
+  }
+
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    console.log('Current index is', currentIndex);
+    let reroll = this.slides.isEnd();
+    if(reroll){
+        this.slides.loop = true;
     }
   }
 
-  isStudentValidated(moduleId: any) {
-    return this.modules.indexOf(moduleId) >= 0;
+  slideNext(){
+    this.slides.slideNext();
   }
 
-  stateText(moduleId: any) {
-    return (this.modules.indexOf(moduleId) >= 0) ? 'validé' : 'à valider';
+  slidePrev(){
+    this.slides.slidePrev();
   }
-
-
-
 }

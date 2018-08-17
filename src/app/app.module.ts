@@ -25,7 +25,7 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
 import { File } from '@ionic-native/file';
 import { DocumentViewer } from '@ionic-native/document-viewer';
 import { FileTransfer } from '@ionic-native/file-transfer';
-// import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 
 @NgModule({
@@ -45,7 +45,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    // RoundProgressModule
+    RoundProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
