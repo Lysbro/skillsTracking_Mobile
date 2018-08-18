@@ -1,25 +1,30 @@
 page-dashboard {
-  
   /* barre de progression */
-  .roundProgressBarWrapper{
-      position: relative;
-      cursor: pointer;
-      width: 140px;
-      height: 190px;
-      float: left;
-      margin: 20px 20px 15px;
+  .roundProgressBarWrapper {
+    position: relative;
+    cursor: pointer;
+    width: 140px;
+    height: 190px;
+    float: left;
+    margin: 20px 20px 15px;
   }
   .roundProgressBarWrapper.responsive {
-      width: 80%;
-      min-height: 280px;
-      float: none;
-      margin: 20px auto;
+    width: 80%;
+    min-height: 280px;
+    float: none;
+    margin: 20px auto;
   }
+
   .roundProgressBarWrapper circle {
-      stroke: #DEDDFF !important;
+    stroke: #DEDDFF !important;
   }
-  .roundProgressBar, .roundProgressBarTeacher, .roundProgressBarStudent, .progressTeacherText, .progressStudentText, .moduleName {
-      position: absolute !important;
+  .roundProgressBar,
+  .roundProgressBarTeacher,
+  .roundProgressBarStudent,
+  .progressTeacherText,
+  .progressStudentText,
+  .moduleName {
+    position: absolute !important;
   }
 
   .roundProgressBarTeacher {
@@ -28,12 +33,14 @@ page-dashboard {
     left: 11px;
     top: 0px;
   }
+
   .roundProgressBarStudent {
     width: 95px !important;
     height: 95px !important;
     left: 23px;
     top: 12px;
   }
+
   .progressTeacherText {
     top: 40px;
     width: 140px;
@@ -50,19 +57,61 @@ page-dashboard {
   }
 
   .moduleName {
-      top: 135px;
-      width: 140px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: bold;
-      white-space: normal;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    top: 135px;
+    width: 140px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
-  .roundProgressBarWrapper.slideImportant{
+  .roundProgressBarWrapper.slideImportant {
     width: 150px !important;
   }
+
+  // .roundProgressBarTeacherAll {
+  //   width: 120px !important;
+  //   height: 120px !important;
+  //   left: 11px;
+  //   top: 0px;
+  // }
+  
+  // .roundProgressBarStudentAll {
+  //   width: 95px !important;
+  //   height: 95px !important;
+  //   left: 23px;
+  //   top: 12px;
+  // }
+
+  // .progressTeacherTextAll {
+  //   top: 40px;
+  //   width: 140px;
+  //   text-align: center;
+  //   font-size: 20px;
+  //   left: 0px;
+  // }
+  // .progressStudentTextAll {
+  //   top: 60px;
+  //   width: 140px;
+  //   text-align: center;
+  //   font-size: 20px;
+  //   left: 0px;
+  // }
+  // .moduleNameAll {
+  //   top: 135px;
+  //   width: 140px;
+  //   text-align: center;
+  //   font-size: 14px;
+  //   font-weight: bold;
+  //   white-space: normal;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  // }
+
+  // .roundProgressBarWrapperAll.slideImportant {
+  //   width: 350px !important;
+  // }
 
   ion-slides {
     display: block;
@@ -73,9 +122,31 @@ page-dashboard {
     top: 12%;
     margin-top: 0;
   }
-
   .swiper-button-prev {
     top: 12%;
     margin-top: 0;
+  }
+  .red {
+    color: #e689b8;
+  }
+  .purple {
+    color: #a3a1fb;
+  }
+  ion-icon > .red {
+    display: inline-block;
+    font: 14px/1 FontAwesome;
+    font-size: 14px;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .cardShadows {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+
+  .icon {
+    font-size: 20px
   }
 }

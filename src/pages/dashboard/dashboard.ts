@@ -35,6 +35,8 @@ export class DashboardPage {
   public student: Student = new Student();
   public modules: Module[] = [];
   public moduleSkills: any;
+  public moduleSelected = 0;
+  public allSkills = [];
   public lastname: any;
   public firstname: any;
   public avatar: any;
@@ -104,10 +106,20 @@ export class DashboardPage {
                 data[i].module.skills[j].progression.teacher_validation,
                 data[i].module.skills[j].progression.teacher_validation_date)
             ));
+            if(data[i].module.skills[j].progression.student_validation) {
+              this.totalStudentValidation++;
+              console.log('student_validation: ',this.totalStudentValidation);
+            }
+
+            if(data[i].module.skills[j].progression.teacher_validation) {
+              this.totalTeacherValidation++;
+              console.log('teacher_validation: ',this.totalTeacherValidation);
+            }
 
           }
 
           this.modules.push(studentModule);
+          this.allSkills.push(studentModule);
 
         }
 
@@ -117,9 +129,31 @@ export class DashboardPage {
 
   }
 
+  public filterByModule(moduleId) {
+    console.log('filterByModule moduleId', moduleId);
+    console.log('filterByModule this.allSkills', this.allSkills);
+    this.moduleSkills = [];
+    this.moduleSelected = moduleId;
+    if (this.moduleSelected === 0) {
+      this.moduleSkills = this.allSkills;
+    console.log('filterByModule this.skills', this.moduleSkills[0].totalSkills);
+
+    } else {
+      console.log('filterByModule moduleId', moduleId);
+      for (let i = 0; i < this.allSkills.length; i++) {
+        if (this.allSkills[i].module.id === this.moduleSelected) {
+          this.moduleSkills.push(this.allSkills[i]);
+        }
+      }
+    }
+  }
   public showSkills(moduleId: any): void {
 
-    this.moduleSkills = this.modules[this.modules.findIndex((module, index, tab) => { return module['id'] == moduleId })];
+    this.moduleSkills = this.modules[
+      this.modules.findIndex((module, index, tab) => { 
+        return module['id'] == moduleId }
+      )
+    ];
 
   }
 
@@ -133,8 +167,7 @@ export class DashboardPage {
   }
 
   goToSlide() {
-    this.slides.loop = true;
-    this.slides.startAutoplay()
+    this.slides.slideTo(1);
   }
 
   slideChanged() {
@@ -142,7 +175,7 @@ export class DashboardPage {
     console.log('Current index is', currentIndex);
     let reroll = this.slides.isEnd();
     if(reroll){
-        this.slides.loop = true;
+      this.slides.loop = true;
     }
   }
 
