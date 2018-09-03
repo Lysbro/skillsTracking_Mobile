@@ -10,29 +10,25 @@ import { AuthServiceProvider } from './../../providers/auth-service/auth-service
   templateUrl: 'profil.html',
 })
 export class ProfilPage {
-  public users: User[] = [];
+  
+  public lastname: any;
+  public firstname: any;
+  public avatar: any;
+  public dataFormation: any;
+  public formation: any;
+  public formationId: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider, private authService: AuthServiceProvider) {
     this.platform.ready().then(() => {
-
-      this.getUser();
-
+      this.lastname = this.navParams.get('lastname');
+      this.firstname = this.navParams.get('firstname');
+      this.avatar = this.navParams.get('avatar');
+      this.formationId = this.navParams.get('formation_id');
     });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilPage');
-  }
-
-  private getUser() {
-    this.apiService.get('users')
-    .then((data: any) => {
-      console.log('profil: ', data);
-      
-      this.users.push(new User(data.id, data.lastname, data.firstname, data.email));
-
-      console.log('profil_user:', this.users);
-    })
   }
 
 }

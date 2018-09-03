@@ -15,13 +15,13 @@
 
 <ion-content padding>
   <ion-list insert>
-    <ion-card *ngFor="let planning of planning" class="cardShadows" >
-      <ion-item (click)="downloadAndOpenPdf(planning.PDF, planning.id)" item-content>
+    <ion-card *ngFor="let planning of planning" class="cardShadows" (click)="downloadAndOpenPdf(planning.PDF)">
+      <ion-item item-content>
         <h2 item-start>{{ planning.name }}</h2>
         <ion-icon name="download" md="md-download" item-end></ion-icon>
       </ion-item>
       <ion-item item-content>
-        <h4 item-start>{{ planning.dateModifed | date:"dd-MM-yyyy hh:mm" }}</h4>
+        <h4 item-start>{{ planning.dateCreated | date:"dd-MM-yyyy hh:mm" }}</h4>
       </ion-item>
     </ion-card>
   </ion-list>

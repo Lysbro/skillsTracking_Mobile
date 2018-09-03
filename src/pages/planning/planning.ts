@@ -47,7 +47,7 @@ export class PlanningPage {
   }
 
 
-  downloadAndOpenPdf(PDF: any, planningId: any): void {
+  downloadAndOpenPdf(PDF: any): void {
     let path = null;
  
     if (this.platform.is('ios')) {
@@ -61,7 +61,6 @@ export class PlanningPage {
     let apiUrl = 'http://skillstracking.motjo.io/uploads/calendars/';
     let pdf = PDF;
     let namePDF = PDF;
-    let id = planningId;
 
     transfer.download(apiUrl + pdf, path + namePDF).then(entry => {
       

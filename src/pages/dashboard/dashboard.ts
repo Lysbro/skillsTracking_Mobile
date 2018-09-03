@@ -37,12 +37,11 @@ export class DashboardPage {
   public moduleSkills: any;
   public moduleSelected = 0;
   public allSkills = [];
+  public skills = [];
   public lastname: any;
   public firstname: any;
   public avatar: any;
-  public nameFormation: any;
-  public max = 100;
-  public current = 35;
+  public selectedSkills: number[] = [0];
   public totalSkills = 0;
   public totalStudentValidation = 0;
   public totalTeacherValidation = 0;
@@ -74,9 +73,12 @@ export class DashboardPage {
   }
 
   private setStudent() {
-    this.apiService.get('formation/' + this.formationId).then((data: any) => {
+    this.apiService.get('studentsFormation').then((data: any) => {
       
-      this.formation = data;
+      for (let i = 0; i < data.length; i++ ){
+        this.formation = data[i];
+      }
+      
 
       console.log('formation: ', this.formation);
     });
@@ -107,6 +109,7 @@ export class DashboardPage {
                 data[i].module.skills[j].progression.teacher_validation_date)
             ));
             if(data[i].module.skills[j].progression.student_validation) {
+              this.selectedSkills.push(data[i].module.skills[j].id);
               this.totalStudentValidation++;
               console.log('student_validation: ',this.totalStudentValidation);
             }
@@ -130,22 +133,14 @@ export class DashboardPage {
   }
 
   public filterByModule(moduleId) {
-    console.log('filterByModule moduleId', moduleId);
-    console.log('filterByModule this.allSkills', this.allSkills);
-    this.moduleSkills = [];
-    this.moduleSelected = moduleId;
-    if (this.moduleSelected === 0) {
-      this.moduleSkills = this.allSkills;
-    console.log('filterByModule this.skills', this.moduleSkills[0].totalSkills);
-
-    } else {
-      console.log('filterByModule moduleId', moduleId);
-      for (let i = 0; i < this.allSkills.length; i++) {
-        if (this.allSkills[i].module.id === this.moduleSelected) {
-          this.moduleSkills.push(this.allSkills[i]);
-        }
-      }
-    }
+    this.moduleSkills = this.modules[
+      this.modules.findIndex((module, index, tab) => { 
+        for(let i; i < this.modules.length; i++) {
+          return module['id'] == moduleId;
+        } 
+        console.log('allSkills: ', this.modules);
+      })
+    ];
   }
   public showSkills(moduleId: any): void {
 
@@ -154,7 +149,6 @@ export class DashboardPage {
         return module['id'] == moduleId }
       )
     ];
-
   }
 
   public updateValidation(progressionId: any, validation: any): void {

@@ -22,7 +22,7 @@
 
 <ion-content padding>
   <ion-slides (ionSlideDidChange)="slideChanged()" (loop)=0>
-    <ion-slide [class.selected]="moduleSelected == 0" class="roundProgressBarWrapper slideImportant" (click)="filterByModule(0)">
+    <ion-slide class="roundProgressBarWrapper slideImportant" [class.selected]="moduleSelected == 0" class="roundProgressBarWrapper slideImportant" (click)="filterByModule(0)">
       <div class="moduleName">Tout</div>
       <round-progress class="roundProgressBarTeacher" [current]="totalTeacherValidation*100/totalSkills" [radius]="45" [color]="environment.progressColorTeacher"
         [max]="environment.progressMax" [stroke]="environment.progressStrokeTeacher"></round-progress>
