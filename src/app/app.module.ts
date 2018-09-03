@@ -1,3 +1,5 @@
+import { PlanningPage } from './../pages/planning/planning';
+import { ProfilPage } from './../pages/profil/profil';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -20,6 +22,10 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 // Native component
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
+import { File } from '@ionic-native/file';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
 
 
 @NgModule({
@@ -31,12 +37,15 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    ProfilPage,
+    PlanningPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    RoundProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,7 +56,9 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    ProfilPage,
+    PlanningPage
   ],
   providers: [
     StatusBar,
@@ -55,7 +66,10 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    ApiServiceProvider
+    ApiServiceProvider,
+    File,
+    DocumentViewer,
+    FileTransfer
   ]
 })
 export class AppModule {}

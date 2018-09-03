@@ -68,6 +68,7 @@ export class LoginPage {
 
   private setPage(user): void {
 
+    console.log('user-connecte: ',user);
     if (this.authService.isLogged()) {
 
       console.log('test user', user.user_type_id);

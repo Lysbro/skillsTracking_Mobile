@@ -1,3 +1,33 @@
 page-login {
 
+  .login-container {
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    height: 100%;
+    background-color: #2E1166;
+  }
+
+  .login-container > .button-row img {
+    max-width: 80%;
+  }
+
+  .login-container > .header {
+    -webkit-flex: 4;
+    padding-top: 20px;
+  }
+
+  p {
+    color: white;
+    font-size: 15px
+
+
+  }
+
+  img {
+    height: 45vh;
+    width: auto;
+    margin: auto;
+    display: block;
+  }
+
 }

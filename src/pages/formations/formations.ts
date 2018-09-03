@@ -27,6 +27,7 @@ import { Module } from '../../models/module.model';
 export class FormationsPage {
 
   public formations: Formation[] = [];
+  public student: any;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private platform: Platform, private apiService: ApiServiceProvider) {
@@ -46,32 +47,32 @@ export class FormationsPage {
   private setFormationsList(): void {
 
     this.apiService.get('teacher/myFormations')
-    .then((data: any) => {
+      .then((data: any) => {
 
-      this.formations = [];
+        this.formations = [];
 
-      console.log('formations_data: ', data['data']);
+        console.log('formations_data: ', data['data']);
 
-      for (let i = 0; i < data['data'].length; i++) {
+        for (let i = 0; i < data['data'].length; i++) {
 
-        this.formations.push(new Formation(data['data'][i].id, data['data'][i].name, data['data'][i].logo, data['data'][i].start_at, data['data'][i].end_at));
+          this.formations.push(new Formation(data['data'][i].id, data['data'][i].name, data['data'][i].logo, data['data'][i].start_at, data['data'][i].end_at));
 
-        for (let j = 0; j < data['data'][i].modules.length; j++) {
+          for (let j = 0; j < data['data'][i].modules.length; j++) {
 
-          this.formations[i].addModule(new Module(data['data'][i].modules[j].id, data['data'][i].modules[j].name));
-          
+            this.formations[i].addModule(new Module(data['data'][i].modules[j].id, data['data'][i].modules[j].name));
+
+          }
+
         }
 
-      }
+        console.log('formations: ', this.formations);
 
-      console.log('formations: ', this.formations);
+      })
+      .then(() => {
 
-    })
-    .then(() => {
+        this.setStudentsListByFormation();
 
-      this.setStudentsListByFormation();
-
-    });
+      });
 
   }
 
@@ -80,19 +81,26 @@ export class FormationsPage {
     for (let i = 0; i < this.formations.length; i++) {
 
       this.apiService.get('getStudentsOfFormation/' + this.formations[i].id)
-      .then((data: any) => {
+        .then((data: any) => {
 
-        console.log('students_data: ', data);
+          console.log('students_data: ', data);
 
-        for (let j = 0; j < data.length; j++) {
+          for (let j = 0; j < data.length; j++) {
 
-          this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname, data[j].avatar, data[j].gender), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
+            this.student = new Student();
+            this.student.id = data[j].id;
+            this.student.lastName = data[j].lastname;
+            this.student.firstName = data[j].firstname;
+            this.student.progressionTotal.totalSkills = data[j].progression.totalSkills;
+            this.student.progressionTotal.studentValidations = data[j].progression.studentValidations;
+            this.student.progressionTotal.teacherValidations = data[j].progression.teacherValidations;
+            this.formations[i].addStudent(new Student(data[j].id, data[j].lastname, data[j].firstname), new ProgressionTotal(data[j].progression.totalSkills, data[j].progression.studentValidations, data[j].progression.teacherValidations));
 
-        }
+          }
 
-        console.log('students: ', this.formations);
+          console.log('students: ', this.formations);
 
-      });
+        });
 
     }
 
