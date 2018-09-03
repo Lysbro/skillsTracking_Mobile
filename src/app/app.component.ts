@@ -11,6 +11,7 @@ import { ReportsPage } from './../pages/reports/reports';
 
 // Providers 
 import { AuthServiceProvider } from './../providers/auth-service/auth-service';
+import { PdfPage } from '../pages/pdf/pdf';
 
 @Component({
   templateUrl: 'app.html'
@@ -20,7 +21,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authService: AuthServiceProvider) {
     this.initializeApp();
@@ -30,7 +31,8 @@ export class MyApp {
       { title: 'Dashboard', component: DashboardPage },
       { title: 'List', component: ListPage },
       { title: 'Login', component: LoginPage },
-      { title: 'Rapports', component: ReportsPage }
+      { title: 'Rapports', component: ReportsPage },
+      { title: 'pdf', component: PdfPage }
     ];
 
   }
@@ -53,11 +55,11 @@ export class MyApp {
   logout() {
 
     this.authService.logout()
-    .then(() => {
+      .then(() => {
 
-      this.nav.setRoot(LoginPage);
+        this.nav.setRoot(LoginPage);
 
-    });
+      });
 
   }
 

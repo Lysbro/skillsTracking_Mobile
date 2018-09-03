@@ -21,7 +21,12 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 
-
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { DocumentViewer } from '@ionic-native/document-viewer';
+import { PdfPage } from '../pages/pdf/pdf';
+import { FileOpener } from '@ionic-native/file-opener';
+import { TestProvider } from '../providers/test/test';
 @NgModule({
   declarations: [
     ReportDetailsPage,
@@ -31,7 +36,8 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    PdfPage
   ],
   imports: [
     BrowserModule,
@@ -47,15 +53,21 @@ import { ApiServiceProvider } from '../providers/api-service/api-service';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    PdfPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     NativeStorage,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
-    ApiServiceProvider
+    File,
+    DocumentViewer,
+    FileTransfer,
+    FileOpener,
+    ApiServiceProvider,
+    TestProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
